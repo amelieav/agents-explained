@@ -59,10 +59,14 @@ export function GlossaryPage(): JSX.Element {
       }
 
       const relatedText = item.related ? item.related.join(" ").toLowerCase() : "";
+      const sourceLabelText = item.sourceLabel ? item.sourceLabel.toLowerCase() : "";
+      const sourceUrlText = item.sourceUrl ? item.sourceUrl.toLowerCase() : "";
       return (
         item.term.toLowerCase().includes(normalizedQuery) ||
         item.definition.toLowerCase().includes(normalizedQuery) ||
-        relatedText.includes(normalizedQuery)
+        relatedText.includes(normalizedQuery) ||
+        sourceLabelText.includes(normalizedQuery) ||
+        sourceUrlText.includes(normalizedQuery)
       );
     });
 

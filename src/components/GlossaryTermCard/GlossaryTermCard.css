@@ -60,3 +60,12 @@
 .glossary-card--bordered {
   border-style: dashed;
 }
+
+.glossary-card__source {
+  margin: var(--space-sm) 0 0;
+  font-size: var(--theme-size-caption);
+}
+
+.glossary-card__source a {
+  font-weight: 700;
+}

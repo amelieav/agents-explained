@@ -34,6 +34,14 @@ export function GlossaryTermCard({
           ))}
         </ul>
       ) : null}
+      {item.sourceLabel && item.sourceUrl ? (
+        <p className="glossary-card__source">
+          Source:{" "}
+          <a href={item.sourceUrl} target="_blank" rel="noreferrer">
+            {item.sourceLabel}
+          </a>
+        </p>
+      ) : null}
     </article>
   );
 }

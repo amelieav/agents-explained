@@ -5,6 +5,9 @@ A sweet educational site that explains how AI agents work, with a component-driv
 ## Highlights
 
 - React + Vite + TypeScript frontend.
+- Landing page focused on agent loops and multi-agent ecosystems.
+- Dedicated `/comparisons` page for framework/protocol comparisons.
+- Glossary page at `/glossary` with search and saved terms.
 - Long-form guide with sticky sidebar navigation and mobile drawer menu.
 - Single source of truth for theme tokens and reusable copy.
 - GitLab Releases feed rendered in-page.

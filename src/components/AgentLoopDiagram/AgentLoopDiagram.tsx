@@ -44,24 +44,26 @@ function edgePoints(from: PositionedLoopNode, to: PositionedLoopNode): { x1: num
   const length = Math.hypot(dx, dy) || 1;
   const nx = dx / length;
   const ny = dy / length;
-  const startOffset = 66;
-  const endOffset = 66;
+  const startOffset = 78;
+  const endOffset = 78;
   const x1 = from.centerX + nx * startOffset;
   const y1 = from.centerY + ny * startOffset;
   const x2 = to.centerX - nx * endOffset;
   const y2 = to.centerY - ny * endOffset;
-  const lx = (x1 + x2) / 2 + -ny * 14;
-  const ly = (y1 + y2) / 2 + nx * 14;
+  const lx = (x1 + x2) / 2 + -ny * 16;
+  const ly = (y1 + y2) / 2 + nx * 16;
 
   return { x1, y1, x2, y2, lx, ly };
 }
 
 export function AgentLoopDiagram({ steps, variant = "default", className }: AgentLoopDiagramProps): JSX.Element {
-  const hubX = 420;
-  const hubY = 300;
-  const radius = steps.length >= 7 ? 240 : steps.length === 6 ? 224 : 205;
-  const nodeWidth = 190;
-  const nodeHeight = 94;
+  const diagramWidth = 980;
+  const diagramHeight = 700;
+  const hubX = 490;
+  const hubY = 350;
+  const radius = steps.length >= 7 ? 282 : steps.length === 6 ? 262 : 238;
+  const nodeWidth = 214;
+  const nodeHeight = 104;
   const edgeLabels = ["Intake", "Route", "Execute", "Check", "Refine", "Merge", "Publish"];
 
   const nodes: PositionedLoopNode[] = steps.map((step, index) => {
@@ -70,8 +72,8 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
       ...step,
       centerX: hubX + radius * Math.cos(angle),
       centerY: hubY + radius * Math.sin(angle),
-      labelLines: wrapLines(step.label, 18).slice(0, 2),
-      detailLines: wrapLines(step.detail, 24).slice(0, 2)
+      labelLines: wrapLines(step.label, 20).slice(0, 2),
+      detailLines: wrapLines(step.detail, 28).slice(0, 2)
     };
   });
 
@@ -82,7 +84,11 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
 
   return (
     <figure className={classNames("agent-loop", agentLoopVariantClass[variant], className)}>
-      <svg viewBox="0 0 840 620" role="img" aria-label="Detailed AI agent loop with orchestration, shared state, and feedback">
+      <svg
+        viewBox={`0 0 ${diagramWidth} ${diagramHeight}`}
+        role="img"
+        aria-label="Detailed AI agent loop with orchestration, shared state, and feedback"
+      >
         <defs>
           <marker id="agent-loop-arrowhead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
             <path d="M 0 0 L 9 4.5 L 0 9 z" className="agent-loop__arrowhead" />
@@ -116,11 +122,11 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
         {steps.length > 3 && retryFrom && retryTo ? (
           <>
             <path
-              d={`M ${retryFrom.centerX - 24} ${retryFrom.centerY - 28} C ${hubX + 26} ${hubY - 180}, ${hubX - 32} ${hubY - 186}, ${retryTo.centerX + 18} ${retryTo.centerY + 34}`}
+              d={`M ${retryFrom.centerX - 24} ${retryFrom.centerY - 32} C ${hubX + 26} ${hubY - 210}, ${hubX - 32} ${hubY - 216}, ${retryTo.centerX + 22} ${retryTo.centerY + 38}`}
               className="agent-loop__feedback"
               markerEnd="url(#agent-loop-arrowhead)"
             />
-            <text className="agent-loop__edge-label" x={hubX - 12} y={hubY - 188}>
+            <text className="agent-loop__edge-label" x={hubX - 16} y={hubY - 216}>
               Feedback retry
             </text>
           </>
@@ -129,21 +135,21 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
         {steps.length > 2 && closeLoopFrom && closeLoopTo ? (
           <>
             <path
-              d={`M ${closeLoopFrom.centerX + 36} ${closeLoopFrom.centerY - 10} C ${hubX - 10} ${hubY + 40}, ${hubX - 140} ${hubY - 18}, ${closeLoopTo.centerX - 24} ${closeLoopTo.centerY + 30}`}
+              d={`M ${closeLoopFrom.centerX + 42} ${closeLoopFrom.centerY - 10} C ${hubX - 10} ${hubY + 48}, ${hubX - 156} ${hubY - 24}, ${closeLoopTo.centerX - 26} ${closeLoopTo.centerY + 36}`}
               className="agent-loop__feedback"
               markerEnd="url(#agent-loop-arrowhead)"
             />
-            <text className="agent-loop__edge-label" x={hubX - 190} y={hubY - 10}>
+            <text className="agent-loop__edge-label" x={hubX - 214} y={hubY - 8}>
               Updated context
             </text>
           </>
         ) : null}
 
-        <circle cx={hubX} cy={hubY} r="76" className="agent-loop__hub" />
+        <circle cx={hubX} cy={hubY} r="84" className="agent-loop__hub" />
         <text x={hubX} y={hubY - 8} className="agent-loop__hub-label">
           Shared State
         </text>
-        <text x={hubX} y={hubY + 14} className="agent-loop__hub-meta">
+        <text x={hubX} y={hubY + 18} className="agent-loop__hub-meta">
           Memory • Tool logs • Budget
         </text>
 
@@ -164,7 +170,7 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
                 </tspan>
               ))}
             </text>
-            <text x={node.centerX} y={node.centerY + 14} className="agent-loop__detail">
+            <text x={node.centerX} y={node.centerY + 18} className="agent-loop__detail">
               {node.detailLines.map((line, lineIndex) => (
                 <tspan key={`${node.id}-line-${lineIndex}`} x={node.centerX} dy={lineIndex === 0 ? 0 : 14}>
                   {line}

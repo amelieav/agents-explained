@@ -10,11 +10,8 @@ import {
   agentLoopReferences,
   bigProjectPractices,
   faqItems,
-  frameworkFit,
-  frameworkTableCopy,
   homeSectionCopy,
   introCopy,
-  mcpCopy,
   organizationPatterns,
   releaseCopy,
   sharedLabels,
@@ -51,9 +48,14 @@ export function HomePage(): JSX.Element {
                 {siteCopy.mobileMenuLabel}
               </button>
             </div>
-            <Link className="home-page__glossary-link" to="/glossary">
-              {siteCopy.glossaryCta}
-            </Link>
+            <div className="home-page__hero-links">
+              <Link className="home-page__hero-link" to="/comparisons">
+                {siteCopy.comparisonsCta}
+              </Link>
+              <Link className="home-page__hero-link" to="/glossary">
+                {siteCopy.glossaryCta}
+              </Link>
+            </div>
           </header>
 
           <SectionShell id="intro" title={introCopy.heading} summary={introCopy.summary} variant="highlight">
@@ -105,40 +107,22 @@ export function HomePage(): JSX.Element {
           </SectionShell>
 
           <SectionShell
-            id="framework-fit"
-            title={homeSectionCopy.framework.title}
-            summary={homeSectionCopy.framework.summary}
+            id="ecosystems"
+            title={homeSectionCopy.ecosystems.title}
+            summary={homeSectionCopy.ecosystems.summary}
           >
-            <div className="home-page__table-wrap">
-              <table className="home-page__table">
-                <thead>
-                  <tr>
-                    <th>{frameworkTableCopy.option}</th>
-                    <th>{frameworkTableCopy.bestFor}</th>
-                    <th>{frameworkTableCopy.mentalModel}</th>
-                    <th>{frameworkTableCopy.caveat}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {frameworkFit.map((item) => (
-                    <tr key={item.name}>
-                      <td>{item.name}</td>
-                      <td>{item.bestFor}</td>
-                      <td>{item.mentalModel}</td>
-                      <td>{item.caveat}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </SectionShell>
-
-          <SectionShell id="mcp" title={mcpCopy.heading} summary={mcpCopy.summary} variant="glass">
-            <div className="home-page__card-grid">
-              {mcpCopy.cards.map((card) => (
-                <article className="home-page__card" key={card.title}>
-                  <h3>{card.title}</h3>
-                  <p>{card.body}</p>
+            <div className="home-page__card-grid home-page__ecosystem-grid">
+              {agentLoopReferences.map((reference) => (
+                <article className="home-page__card" key={reference.id}>
+                  <p className="home-page__card-tag">{reference.tabLabel}</p>
+                  <h3>{reference.title}</h3>
+                  <p>{reference.why}</p>
+                  <p>
+                    <strong>Loop stages:</strong> {reference.steps.length}
+                  </p>
+                  <a className="home-page__card-link" href={reference.sourceUrl} target="_blank" rel="noreferrer">
+                    {reference.sourceName}
+                  </a>
                 </article>
               ))}
             </div>

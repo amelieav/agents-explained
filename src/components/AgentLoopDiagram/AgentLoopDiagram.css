@@ -34,7 +34,7 @@
 }
 
 .agent-loop__edge-label {
-  font-size: 11px;
+  font-size: 12px;
   text-anchor: middle;
   fill: var(--text-muted);
   font-weight: 700;
@@ -48,14 +48,14 @@
 
 .agent-loop__hub-label {
   font-family: var(--theme-font-display);
-  font-size: 17px;
+  font-size: 18px;
   text-anchor: middle;
   fill: var(--text-primary);
 }
 
 .agent-loop__hub-meta {
   text-anchor: middle;
-  font-size: 11px;
+  font-size: 12px;
   fill: var(--text-muted);
 }
 
@@ -67,7 +67,7 @@
 
 .agent-loop__label {
   font-family: var(--theme-font-display);
-  font-size: 15px;
+  font-size: 16px;
   text-anchor: middle;
   font-weight: 700;
   fill: var(--text-primary);
@@ -76,7 +76,7 @@
 .agent-loop__detail {
   text-anchor: middle;
   fill: var(--text-muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .agent-loop__caption {

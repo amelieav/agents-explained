@@ -506,6 +506,232 @@ export const glossaryItems: GlossaryItem[] = [
     sourceUrl: "https://github.com/dair-ai/Prompt-Engineering-Guide"
   },
   {
+    term: "Flow (Langflow)",
+    definition:
+      "The core visual node graph in Langflow representing an LLM workflow or multi-agent pipeline deployable as API, JSON, or tool.",
+    related: ["Langflow", "workflow graph", "canvas"],
+    sourceLabel: "langflow-ai/langflow",
+    sourceUrl: "https://github.com/langflow-ai/langflow"
+  },
+  {
+    term: "Component (Langflow)",
+    definition: "A modular block in Langflow Flows, such as an LLM, retriever, tool, memory, or custom Python component.",
+    related: ["Flow (Langflow)", "modular design"],
+    sourceLabel: "langflow-ai/langflow",
+    sourceUrl: "https://github.com/langflow-ai/langflow"
+  },
+  {
+    term: "MCP Server (Langflow integration)",
+    definition: "Langflow capability that exposes flows through an MCP server so external MCP clients can invoke them as tools.",
+    related: ["Langflow", "MCP", "tool integration"],
+    sourceLabel: "langflow-ai/langflow",
+    sourceUrl: "https://github.com/langflow-ai/langflow"
+  },
+  {
+    term: "Interactive Playground (Langflow)",
+    definition: "Langflow’s built-in step-through environment for testing and inspecting flow execution behavior.",
+    related: ["Langflow", "debugging", "flow inspection"],
+    sourceLabel: "langflow-ai/langflow",
+    sourceUrl: "https://github.com/langflow-ai/langflow"
+  },
+  {
+    term: "Agentic UX (Langflow context)",
+    definition:
+      "Interface patterns optimized for agent workflows, including multi-agent visibility, state tracking, and tool tracing.",
+    related: ["Langflow", "observability", "multi-agent system"],
+    sourceLabel: "langflow-ai/langflow",
+    sourceUrl: "https://github.com/langflow-ai/langflow"
+  },
+  {
+    term: "Workflow (Dify canvas)",
+    definition:
+      "Dify’s canvas-based workflow model, tightly connected to deployment, monitoring, and lifecycle management.",
+    related: ["Dify", "workflow builder", "LLMOps"],
+    sourceLabel: "langgenius/dify",
+    sourceUrl: "https://github.com/langgenius/dify"
+  },
+  {
+    term: "LLMOps (Dify term)",
+    definition:
+      "Dify’s operational layer for logging, monitoring, prompt iteration, and production AI system maintenance.",
+    related: ["Dify", "observability", "prompt improvement"],
+    sourceLabel: "langgenius/dify",
+    sourceUrl: "https://github.com/langgenius/dify"
+  },
+  {
+    term: "Backend-as-a-Service (Dify context)",
+    definition: "Dify pattern of exposing app components via APIs so agent workflows integrate directly into business systems.",
+    related: ["Dify", "API integration", "application platform"],
+    sourceLabel: "langgenius/dify",
+    sourceUrl: "https://github.com/langgenius/dify"
+  },
+  {
+    term: "Suggested Questions Configuration (Dify)",
+    definition:
+      "Dify feature for post-answer question generation configured by environment variables such as SUGGESTED_QUESTIONS_PROMPT, SUGGESTED_QUESTIONS_MAX_TOKENS, and SUGGESTED_QUESTIONS_TEMPERATURE.",
+    related: ["Dify", "runtime config", "prompt controls"],
+    sourceLabel: "langgenius/dify",
+    sourceUrl: "https://github.com/langgenius/dify"
+  },
+  {
+    term: "Human-in-the-loop (Dify)",
+    definition: "Workflow intervention point in Dify where manual decisions can approve, adjust, or unblock execution.",
+    related: ["Dify", "gate state", "approval gate"],
+    sourceLabel: "langgenius/dify",
+    sourceUrl: "https://github.com/langgenius/dify"
+  },
+  {
+    term: "Dify Open Source License",
+    definition: "Dify’s Apache-2.0-based license model with additional project-specific conditions.",
+    related: ["Dify", "compliance", "governance"],
+    sourceLabel: "langgenius/dify",
+    sourceUrl: "https://github.com/langgenius/dify"
+  },
+  {
+    term: "Agent (Browser-Use implementation)",
+    definition:
+      "Browser-Use runtime agent class that binds an LLM to browser control for task-oriented web execution.",
+    related: ["Browser-Use", "browser automation", "execution layer"],
+    sourceLabel: "browser-use/browser-use",
+    sourceUrl: "https://github.com/browser-use/browser-use"
+  },
+  {
+    term: "ChatBrowserUse",
+    definition: "Browser-Use specific LLM wrapper optimized for browser interaction tasks and web action planning.",
+    related: ["Browser-Use", "LLM wrapper"],
+    sourceLabel: "browser-use/browser-use",
+    sourceUrl: "https://github.com/browser-use/browser-use"
+  },
+  {
+    term: "Sandbox Decorator (Browser-Use)",
+    definition: "Browser-Use cloud integration decorator used to run agent execution in managed sandbox environments.",
+    related: ["Browser-Use", "execution sandbox", "cloud runtime"],
+    sourceLabel: "browser-use/browser-use",
+    sourceUrl: "https://github.com/browser-use/browser-use"
+  },
+  {
+    term: "Browser-Use Cloud",
+    definition:
+      "Hosted Browser-Use runtime providing stealth browser sessions, persistence, auth handling, and managed execution.",
+    related: ["Browser-Use", "cloud execution", "session persistence"],
+    sourceLabel: "browser-use/browser-use",
+    sourceUrl: "https://github.com/browser-use/browser-use"
+  },
+  {
+    term: "Claude Code Skill (Browser-Use)",
+    definition:
+      "Browser-Use integration package installed in Claude Code skills for structured browser automation workflows.",
+    related: ["Browser-Use", "skill integration", "developer tooling"],
+    sourceLabel: "browser-use/browser-use",
+    sourceUrl: "https://github.com/browser-use/browser-use"
+  },
+  {
+    term: "State CLI (Browser-Use)",
+    definition: "The `browser-use state` command that lists indexed, clickable DOM elements for agent interaction.",
+    related: ["Browser-Use", "CLI", "DOM inspection"],
+    sourceLabel: "browser-use/browser-use",
+    sourceUrl: "https://github.com/browser-use/browser-use"
+  },
+  {
+    term: "DeepDoc (RAGFlow)",
+    definition: "RAGFlow subsystem for deep parsing and structured understanding of complex documents.",
+    related: ["RAGFlow", "document parsing", "knowledge extraction"],
+    sourceLabel: "infiniflow/ragflow",
+    sourceUrl: "https://github.com/infiniflow/ragflow"
+  },
+  {
+    term: "Template-based chunking (RAGFlow)",
+    definition: "RAGFlow chunking strategy using structured templates instead of only naive token splits.",
+    related: ["RAGFlow", "chunking", "retrieval quality"],
+    sourceLabel: "infiniflow/ragflow",
+    sourceUrl: "https://github.com/infiniflow/ragflow"
+  },
+  {
+    term: "Converged context engine (RAGFlow)",
+    definition:
+      "RAGFlow architecture combining full-text search, vector retrieval, reranking, and agent-facing context assembly.",
+    related: ["RAGFlow", "context engine", "retrieval fusion"],
+    sourceLabel: "infiniflow/ragflow",
+    sourceUrl: "https://github.com/infiniflow/ragflow"
+  },
+  {
+    term: "Infinity engine option (RAGFlow)",
+    definition: "RAGFlow backend option configured via DOC_ENGINE=infinity as an alternative to Elasticsearch.",
+    related: ["RAGFlow", "storage backend", "configuration"],
+    sourceLabel: "infiniflow/ragflow",
+    sourceUrl: "https://github.com/infiniflow/ragflow"
+  },
+  {
+    term: "Cross-language query (RAGFlow)",
+    definition: "RAGFlow feature supporting multilingual retrieval and question answering across language boundaries.",
+    related: ["RAGFlow", "multilingual retrieval"],
+    sourceLabel: "infiniflow/ragflow",
+    sourceUrl: "https://github.com/infiniflow/ragflow"
+  },
+  {
+    term: "GraphRAG extraction (RAGFlow)",
+    definition: "RAGFlow module for graph-oriented retrieval augmentation and knowledge-graph-style extraction workflows.",
+    related: ["RAGFlow", "GraphRAG", "knowledge graph"],
+    sourceLabel: "infiniflow/ragflow",
+    sourceUrl: "https://github.com/infiniflow/ragflow"
+  },
+  {
+    term: "Orchestrable ingestion pipeline (RAGFlow)",
+    definition: "Composable ingestion workflow design in RAGFlow for automating staged document processing.",
+    related: ["RAGFlow", "ingestion", "workflow orchestration"],
+    sourceLabel: "infiniflow/ragflow",
+    sourceUrl: "https://github.com/infiniflow/ragflow"
+  },
+  {
+    term: "Tree of Thoughts (ToT)",
+    definition: "Reasoning strategy that explores multiple branches before selecting the strongest solution path.",
+    related: ["prompt strategy", "search", "reasoning"],
+    sourceLabel: "dair-ai/Prompt-Engineering-Guide",
+    sourceUrl: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+  },
+  {
+    term: "ReAct prompting",
+    definition: "Prompting pattern that alternates internal reasoning with external action or tool execution steps.",
+    related: ["ReAct loop", "tool call", "reasoning"],
+    sourceLabel: "dair-ai/Prompt-Engineering-Guide",
+    sourceUrl: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+  },
+  {
+    term: "Automatic Prompt Engineer",
+    definition: "Technique where models generate and refine prompts to optimize downstream task performance.",
+    related: ["prompt optimization", "meta prompting"],
+    sourceLabel: "dair-ai/Prompt-Engineering-Guide",
+    sourceUrl: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+  },
+  {
+    term: "Program-aided language models (PAL)",
+    definition: "Approach where LLMs generate executable programs to improve reasoning and answer accuracy.",
+    related: ["tool use", "code execution", "reasoning"],
+    sourceLabel: "dair-ai/Prompt-Engineering-Guide",
+    sourceUrl: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+  },
+  {
+    term: "Self-consistency",
+    definition: "Sampling multiple reasoning paths and aggregating them to improve reliability of final answers.",
+    related: ["reasoning ensemble", "prompt strategy"],
+    sourceLabel: "dair-ai/Prompt-Engineering-Guide",
+    sourceUrl: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+  },
+  {
+    term: "Multimodal CoT",
+    definition: "Chain-of-thought style reasoning extended across modalities such as text and image inputs.",
+    related: ["multimodal reasoning", "chain-of-thought"],
+    sourceLabel: "dair-ai/Prompt-Engineering-Guide",
+    sourceUrl: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+  },
+  {
+    term: "Graph prompting",
+    definition: "Prompting with graph-structured context or constraints to improve relational reasoning tasks.",
+    related: ["graph reasoning", "prompt structure"],
+    sourceLabel: "dair-ai/Prompt-Engineering-Guide",
+    sourceUrl: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+  },
+  {
     term: "Context window",
     definition: "The bounded token budget the model can consider in one pass.",
     related: ["prompt", "memory"]

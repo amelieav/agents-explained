@@ -30,6 +30,8 @@ export interface GlossaryItem {
   term: string;
   definition: string;
   related?: string[];
+  sourceLabel?: string;
+  sourceUrl?: string;
 }
 
 export interface ReleaseItem {

@@ -309,6 +309,165 @@ export const glossaryItems: GlossaryItem[] = [
     related: ["token budget", "policy"]
   },
   {
+    term: "Agent",
+    definition: "An AI entity assigned a durable role and responsibility within a larger system.",
+    related: ["agent identity", "session"]
+  },
+  {
+    term: "Multi-agent system",
+    definition: "A system where multiple specialized agents run concurrently and coordinate toward shared outcomes.",
+    related: ["swarming", "orchestrator"]
+  },
+  {
+    term: "Agent orchestrator",
+    definition: "Software that routes work across agents, tracks dependencies, and drives workflows to completion.",
+    related: ["task routing", "lifecycle management"]
+  },
+  {
+    term: "Swarming",
+    definition: "Parallel deployment of many agents on related tasks to increase throughput and reduce delivery time.",
+    related: ["parallelization", "multi-agent"]
+  },
+  {
+    term: "Workflow (agentic context)",
+    definition: "A structured execution plan with ordered tasks, dependencies, gates, and acceptance criteria.",
+    related: ["gate state", "work graph"]
+  },
+  {
+    term: "Persistent work representation",
+    definition: "Storing tasks and execution state outside model context so progress survives resets and restarts.",
+    related: ["durable execution", "state checkpoint"]
+  },
+  {
+    term: "Durable execution",
+    definition: "A property where long-running workflows eventually finish despite crashes, resets, or agent restarts.",
+    related: ["resilience", "recovery"]
+  },
+  {
+    term: "Idempotent workflow design",
+    definition: "Designing steps so retries are safe and repeated execution does not corrupt system state.",
+    related: ["idempotent action", "retry policy"]
+  },
+  {
+    term: "Agent identity vs session",
+    definition: "A design split where agents are persistent identities while sessions are temporary runtime instances.",
+    related: ["agent", "session"]
+  },
+  {
+    term: "Hook-based execution",
+    definition: "Automatically running assigned work for an agent on startup through predefined lifecycle hooks.",
+    related: ["autonomous continuation", "startup hooks"]
+  },
+  {
+    term: "Nudging",
+    definition: "Explicitly prompting an agent to re-check assigned tasks when passive polling is unreliable.",
+    related: ["patrol agents", "workflow recovery"]
+  },
+  {
+    term: "Patrol agents",
+    definition: "Recurring agents that monitor queues, detect stalled workflows, and trigger recovery actions.",
+    related: ["controllers", "health checks"]
+  },
+  {
+    term: "Merge queue management (agentic context)",
+    definition: "Coordinating concurrent AI code changes via ordered merges, rebases, and conflict handling.",
+    related: ["rebase automation", "conflict resolution"]
+  },
+  {
+    term: "Convoy",
+    definition: "A tracked delivery unit that bundles multiple related tasks and marks done when all complete.",
+    related: ["delivery batch", "work order"]
+  },
+  {
+    term: "MEOW (Molecular Expression of Work)",
+    definition:
+      "A Gas Town concept for modeling knowledge work as composable workflow structures outside the LLM context window.",
+    related: ["bead", "molecule", "protomolecule", "formula", "wisp"],
+    sourceLabel: "Gas Town (Steve Yegge)",
+    sourceUrl: "https://medium.com/@steveyegge/welcome-to-gas-town-2026"
+  },
+  {
+    term: "Bead (MEOW)",
+    definition: "An atomic unit of work in the MEOW model; roughly equivalent to a single issue or task item.",
+    related: ["MEOW", "work item"],
+    sourceLabel: "Gas Town (Steve Yegge)",
+    sourceUrl: "https://medium.com/@steveyegge/welcome-to-gas-town-2026"
+  },
+  {
+    term: "Molecule (MEOW)",
+    definition: "A composed workflow graph of multiple Beads representing a larger execution path.",
+    related: ["MEOW", "workflow graph"],
+    sourceLabel: "Gas Town (Steve Yegge)",
+    sourceUrl: "https://medium.com/@steveyegge/welcome-to-gas-town-2026"
+  },
+  {
+    term: "Protomolecule (MEOW)",
+    definition: "A reusable workflow template that can generate multiple concrete Molecules.",
+    related: ["MEOW", "workflow template"],
+    sourceLabel: "Gas Town (Steve Yegge)",
+    sourceUrl: "https://medium.com/@steveyegge/welcome-to-gas-town-2026"
+  },
+  {
+    term: "Formula (MEOW)",
+    definition: "A definition language for dynamically instantiating workflow structures from templates.",
+    related: ["MEOW", "workflow DSL"],
+    sourceLabel: "Gas Town (Steve Yegge)",
+    sourceUrl: "https://medium.com/@steveyegge/welcome-to-gas-town-2026"
+  },
+  {
+    term: "Wisp (MEOW)",
+    definition: "An ephemeral instantiated workflow execution derived from a MEOW Formula.",
+    related: ["MEOW", "ephemeral workflow"],
+    sourceLabel: "Gas Town (Steve Yegge)",
+    sourceUrl: "https://medium.com/@steveyegge/welcome-to-gas-town-2026"
+  },
+  {
+    term: "Nondeterministic idempotence",
+    definition:
+      "A property where variable AI step outputs still converge to a correct final state, and retries remain safe.",
+    related: ["idempotent workflow design", "durable execution"]
+  },
+  {
+    term: "Work as graph",
+    definition: "Representing work as nodes and edges with dependencies, loops, and conditional execution paths.",
+    related: ["workflow", "orchestration graph"]
+  },
+  {
+    term: "Gate state",
+    definition: "A workflow pause point waiting for an external signal such as CI, approval, or API callback.",
+    related: ["wait condition", "workflow control"]
+  },
+  {
+    term: "Plugin architecture (agentic)",
+    definition: "An extension model that injects policy checks, integrations, and domain logic into workflows.",
+    related: ["extensibility", "policy enforcement"]
+  },
+  {
+    term: "Ephemeral vs persistent work",
+    definition: "Separating short-lived orchestration metadata from durable deliverable work artifacts.",
+    related: ["persistent work representation", "state checkpoint"]
+  },
+  {
+    term: "Role-specialized agents",
+    definition: "Using different prompts and policies per role such as planner, implementer, reviewer, and merger.",
+    related: ["multi-agent system", "division of labor"]
+  },
+  {
+    term: "Token throughput",
+    definition: "The rate at which a system consumes model tokens over time across parallel executions.",
+    related: ["cost guard", "capacity planning"]
+  },
+  {
+    term: "YOLO mode",
+    definition: "A high-autonomy mode where agents execute actions without interactive permission prompts.",
+    related: ["risk control", "autonomy"]
+  },
+  {
+    term: "Wide agent",
+    definition: "An agent granted broad authority across files, tools, and refactor scope instead of narrow tasks.",
+    related: ["capability scoping", "autonomy"]
+  },
+  {
     term: "Context window",
     definition: "The bounded token budget the model can consider in one pass.",
     related: ["prompt", "memory"]

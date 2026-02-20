@@ -53,3 +53,13 @@ export interface PatternItem {
   whenToUse: string;
   risk: string;
 }
+
+export interface AgentLoopReference {
+  id: string;
+  tabLabel: string;
+  title: string;
+  sourceName: string;
+  sourceUrl: string;
+  why: string;
+  steps: LoopStep[];
+}

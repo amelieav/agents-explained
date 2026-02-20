@@ -38,7 +38,7 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
           </g>
         ))}
       </svg>
-      <figcaption className="agent-loop__caption">Understand -> Plan -> Act -> Evaluate -> Adapt</figcaption>
+      <figcaption className="agent-loop__caption">Understand -&gt; Plan -&gt; Act -&gt; Evaluate -&gt; Adapt</figcaption>
     </figure>
   );
 }

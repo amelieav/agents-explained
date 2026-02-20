@@ -209,6 +209,106 @@ export const glossaryItems: GlossaryItem[] = [
     related: ["observability", "debugging"]
   },
   {
+    term: "ReAct loop",
+    definition: "A prompting pattern that alternates explicit reasoning steps with tool actions.",
+    related: ["chain-of-thought", "tool call"]
+  },
+  {
+    term: "Function-calling schema",
+    definition: "The typed argument contract a model must follow when invoking a tool.",
+    related: ["JSON schema", "validation"]
+  },
+  {
+    term: "Tool router",
+    definition: "Logic that selects which tool to call based on intent, state, and policy.",
+    related: ["planner", "policy"]
+  },
+  {
+    term: "Planning horizon",
+    definition: "How many future steps the planner considers before choosing the next action.",
+    related: ["planner", "search depth"]
+  },
+  {
+    term: "Reflection step",
+    definition: "An explicit self-review pass where the agent critiques and revises its output.",
+    related: ["evaluator", "retry policy"]
+  },
+  {
+    term: "Critic model",
+    definition: "A separate model pass used to evaluate quality, safety, or correctness.",
+    related: ["evaluator", "judge"]
+  },
+  {
+    term: "Token budget",
+    definition: "The allocated token limit for a step or run, often split across prompt and output.",
+    related: ["context window", "cost control"]
+  },
+  {
+    term: "Retrieval-augmented generation (RAG)",
+    definition: "A method that injects retrieved documents into context before generation.",
+    related: ["retrieval", "vector index"]
+  },
+  {
+    term: "Vector index",
+    definition: "A data structure for approximate nearest-neighbor search over embeddings.",
+    related: ["RAG", "embedding"]
+  },
+  {
+    term: "Embedding drift",
+    definition: "Quality degradation caused by mismatched embedding models, corpora, or index versions.",
+    related: ["retrieval quality", "index maintenance"]
+  },
+  {
+    term: "Execution sandbox",
+    definition: "An isolated runtime for tool execution that limits filesystem, network, or process access.",
+    related: ["least privilege", "safety"]
+  },
+  {
+    term: "Circuit breaker",
+    definition: "A protection rule that halts repeated failing actions to prevent cascading errors.",
+    related: ["retry policy", "resilience"]
+  },
+  {
+    term: "Dead-letter queue",
+    definition: "A holding queue for failed tasks that require manual inspection or reprocessing.",
+    related: ["job orchestration", "failure handling"]
+  },
+  {
+    term: "Human-in-the-loop (HITL)",
+    definition: "A workflow where certain actions require explicit human approval before execution.",
+    related: ["approval gate", "risk control"]
+  },
+  {
+    term: "Deterministic replay",
+    definition: "Re-running an agent trace with fixed inputs and seeds to reproduce behavior.",
+    related: ["debugging", "trace"]
+  },
+  {
+    term: "Prompt injection",
+    definition: "Malicious or untrusted text designed to override instructions or exfiltrate data.",
+    related: ["guardrail", "security"]
+  },
+  {
+    term: "Capability scoping",
+    definition: "Restricting an agent to a minimal set of tools and permissions for a task.",
+    related: ["least privilege", "tool policy"]
+  },
+  {
+    term: "State checkpoint",
+    definition: "A persisted snapshot of workflow state used to resume long-running executions.",
+    related: ["durability", "resumability"]
+  },
+  {
+    term: "Partial failure recovery",
+    definition: "Continuing a workflow by retrying only failed branches rather than restarting everything.",
+    related: ["resilience", "idempotent action"]
+  },
+  {
+    term: "Cost guard",
+    definition: "A runtime threshold that stops execution when token spend or tool usage exceeds budget.",
+    related: ["token budget", "policy"]
+  },
+  {
     term: "Context window",
     definition: "The bounded token budget the model can consider in one pass.",
     related: ["prompt", "memory"]

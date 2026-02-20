@@ -7,37 +7,90 @@
   width: 100%;
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--surface-layer) 70%, var(--accent-primary) 30%);
+  background: color-mix(in srgb, var(--surface-layer) 62%, var(--accent-primary) 38%);
   box-shadow: var(--shadow-soft);
   padding: var(--space-sm);
 }
 
+.agent-loop__arrowhead {
+  fill: var(--text-muted);
+}
+
 .agent-loop__edge {
-  stroke: var(--text-muted);
+  stroke: color-mix(in srgb, var(--text-primary) 64%, var(--accent-primary) 36%);
+  stroke-width: 2.1;
+}
+
+.agent-loop__feedback {
+  fill: none;
+  stroke: color-mix(in srgb, var(--accent-secondary) 72%, var(--text-primary) 28%);
+  stroke-width: 2.2;
+}
+
+.agent-loop__sync {
+  stroke: color-mix(in srgb, var(--text-muted) 72%, transparent);
+  stroke-width: 1.2;
+  stroke-dasharray: 5 6;
+}
+
+.agent-loop__edge-label {
+  font-size: 11px;
+  text-anchor: middle;
+  fill: var(--text-muted);
+  font-weight: 700;
+}
+
+.agent-loop__hub {
+  fill: color-mix(in srgb, var(--accent-highlight) 44%, var(--surface-card) 56%);
+  stroke: color-mix(in srgb, var(--text-primary) 56%, var(--accent-primary) 44%);
   stroke-width: 2;
-  stroke-dasharray: 6;
+}
+
+.agent-loop__hub-label {
+  font-family: var(--theme-font-display);
+  font-size: 17px;
+  text-anchor: middle;
+  fill: var(--text-primary);
+}
+
+.agent-loop__hub-meta {
+  text-anchor: middle;
+  font-size: 11px;
+  fill: var(--text-muted);
 }
 
 .agent-loop__node {
   fill: color-mix(in srgb, var(--surface-card) 72%, var(--accent-secondary) 28%);
-  stroke: var(--border-soft);
-  stroke-width: 1.5;
+  stroke: color-mix(in srgb, var(--text-primary) 40%, var(--accent-secondary) 60%);
+  stroke-width: 1.8;
 }
 
 .agent-loop__label {
   font-family: var(--theme-font-display);
-  font-size: var(--theme-size-diagram-label);
+  font-size: 15px;
   text-anchor: middle;
-  dominant-baseline: middle;
+  font-weight: 700;
   fill: var(--text-primary);
+}
+
+.agent-loop__detail {
+  text-anchor: middle;
+  fill: var(--text-muted);
+  font-size: 11px;
 }
 
 .agent-loop__caption {
   margin: 0;
   color: var(--text-muted);
   font-size: var(--theme-size-caption);
+  line-height: 1.5;
 }
 
 .agent-loop--compact svg {
   padding: var(--space-xs);
+}
+
+.agent-loop--compact .agent-loop__detail,
+.agent-loop--compact .agent-loop__edge-label {
+  display: none;
 }

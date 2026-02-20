@@ -2,8 +2,7 @@ import { NavItem } from "../types/content";
 
 export const navItems: NavItem[] = [
   { id: "intro", label: "Start Here" },
-  { id: "mental-model", label: "Mental Model" },
-  { id: "agent-loop", label: "Simplest Loop" },
+  { id: "mental-model", label: "Mental Model + Loop" },
   { id: "framework-fit", label: "LangChain vs LangGraph" },
   { id: "mcp", label: "MCP vs Tools vs Docs" },
   { id: "org-patterns", label: "Org Patterns" },

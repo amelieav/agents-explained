@@ -786,12 +786,12 @@ export const labCopy = {
 
 export const homeSectionCopy = {
   mentalModel: {
-    title: "Mental model",
-    summary: "These pieces show up in almost every practical agent system."
+    title: "Mental model + operational loop",
+    summary: "How the core agent parts map directly onto an end-to-end execution loop."
   },
   loop: {
-    title: "Simplest agent loop",
-    summary: "Make each step observable and measurable."
+    title: "Execution loop with shared state and feedback",
+    summary: "Make each stage observable, measurable, and retry-safe."
   },
   framework: {
     title: "How LangChain and LangGraph fit",

@@ -39,12 +39,14 @@ export function HomePage(): JSX.Element {
 
         <div className="home-page__content">
           <header className="home-page__hero" id="top">
-            <p>{siteCopy.eyebrow}</p>
-            <h1>{siteCopy.title}</h1>
-            <p>{siteCopy.subtitle}</p>
-            <button className="home-page__menu-button" type="button" onClick={() => setDrawerOpen(true)}>
-              {siteCopy.mobileMenuLabel}
-            </button>
+            <div className="home-page__hero-copy">
+              <p>{siteCopy.eyebrow}</p>
+              <h1>{siteCopy.title}</h1>
+              <p>{siteCopy.subtitle}</p>
+              <button className="home-page__menu-button" type="button" onClick={() => setDrawerOpen(true)}>
+                {siteCopy.mobileMenuLabel}
+              </button>
+            </div>
             <Link className="home-page__glossary-link" to="/glossary">
               {siteCopy.glossaryCta}
             </Link>
@@ -58,26 +60,34 @@ export function HomePage(): JSX.Element {
             </ul>
           </SectionShell>
 
-          <SectionShell id="mental-model" title={homeSectionCopy.mentalModel.title} summary={homeSectionCopy.mentalModel.summary}>
-            <div className="home-page__card-grid">
-              {mentalModelCards.map((card) => (
-                <article className="home-page__card" key={card.title}>
-                  <h3>{card.title}</h3>
-                  <p>{card.body}</p>
-                </article>
-              ))}
-            </div>
-          </SectionShell>
+          <SectionShell
+            id="mental-model"
+            title={homeSectionCopy.mentalModel.title}
+            summary={homeSectionCopy.mentalModel.summary}
+            variant="glass"
+          >
+            <div className="home-page__combined-grid">
+              <div className="home-page__card-grid home-page__card-grid--mental">
+                {mentalModelCards.map((card) => (
+                  <article className="home-page__card" key={card.title}>
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
+                  </article>
+                ))}
+              </div>
 
-          <SectionShell id="agent-loop" title={homeSectionCopy.loop.title} summary={homeSectionCopy.loop.summary} variant="glass">
-            <AgentLoopDiagram steps={loopSteps} />
-            <ol className="home-page__ordered-list">
-              {loopSteps.map((step) => (
-                <li key={step.id}>
-                  <strong>{step.label}:</strong> {step.detail}
-                </li>
-              ))}
-            </ol>
+              <div className="home-page__loop-stack">
+                <h3 className="home-page__subheading">{homeSectionCopy.loop.title}</h3>
+                <AgentLoopDiagram steps={loopSteps} />
+                <ol className="home-page__ordered-list">
+                  {loopSteps.map((step) => (
+                    <li key={step.id}>
+                      <strong>{step.label}:</strong> {step.detail}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
           </SectionShell>
 
           <SectionShell

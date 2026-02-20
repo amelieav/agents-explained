@@ -29,6 +29,10 @@
   padding: var(--space-xl);
   position: relative;
   overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-md);
+  align-items: center;
 }
 
 .home-page__hero::after {
@@ -42,6 +46,13 @@
 
 .home-page__hero p {
   margin: 0;
+}
+
+.home-page__hero-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-sm);
 }
 
 .home-page__hero p:first-child {
@@ -66,7 +77,6 @@
 }
 
 .home-page__menu-button {
-  margin-top: var(--space-md);
   border: 1px solid var(--border-soft);
   background: var(--surface-layer);
   border-radius: var(--radius-pill);
@@ -78,14 +88,47 @@
 .home-page__glossary-link {
   position: relative;
   z-index: 1;
-  margin-top: var(--space-sm);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   font-weight: 700;
-  border: 1px solid var(--border-soft);
+  border: 2px solid var(--border-soft);
   border-radius: var(--radius-pill);
-  padding: var(--space-xxs) var(--space-md);
-  background: color-mix(in srgb, var(--surface-layer) 78%, var(--accent-primary) 22%);
+  padding: var(--space-sm) var(--space-lg);
+  min-width: 200px;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  background: color-mix(in srgb, var(--surface-layer) 52%, var(--accent-primary) 48%);
+  box-shadow: var(--shadow-soft);
+}
+
+.home-page__glossary-link:hover,
+.home-page__glossary-link:focus-visible {
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.home-page__combined-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.home-page__card-grid--mental {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.home-page__loop-stack {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.home-page__subheading {
+  margin: 0;
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-card-title);
 }
 
 .home-page__card-grid {
@@ -155,5 +198,19 @@
 
   .home-page__menu-button {
     display: inline-block;
+  }
+
+  .home-page__hero {
+    grid-template-columns: 1fr;
+  }
+
+  .home-page__glossary-link {
+    justify-self: start;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .home-page__combined-grid {
+    grid-template-columns: 1fr;
   }
 }

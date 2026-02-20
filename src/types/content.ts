@@ -1,7 +1,6 @@
 export type SectionId =
   | "intro"
   | "mental-model"
-  | "agent-loop"
   | "framework-fit"
   | "mcp"
   | "org-patterns"

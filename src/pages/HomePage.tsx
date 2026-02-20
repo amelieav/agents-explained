@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import { AgentLoopDiagram } from "../components/AgentLoopDiagram/AgentLoopDiagram";
 import { FAQAccordion } from "../components/FAQAccordion/FAQAccordion";
 import { GlossaryTermCard } from "../components/GlossaryTermCard/GlossaryTermCard";
@@ -36,13 +35,7 @@ export function HomePage(): JSX.Element {
     <main className="home-page">
       <div className="home-page__layout">
         <aside className="home-page__sidebar" aria-label="Desktop navigation">
-          <SidebarNav
-            items={navItems}
-            activeId={activeId}
-            title={siteCopy.sidebarTitle}
-            note={siteCopy.sidebarNote}
-            labLinkLabel={siteCopy.labCta}
-          />
+          <SidebarNav items={navItems} activeId={activeId} title={siteCopy.sidebarTitle} note={siteCopy.sidebarNote} />
         </aside>
 
         <div className="home-page__content">
@@ -53,9 +46,6 @@ export function HomePage(): JSX.Element {
             <button className="home-page__menu-button" type="button" onClick={() => setDrawerOpen(true)}>
               {siteCopy.mobileMenuLabel}
             </button>
-            <Link className="home-page__lab-link" to="/lab">
-              {siteCopy.labCta}
-            </Link>
           </header>
 
           <SectionShell id="intro" title={introCopy.heading} summary={introCopy.summary} variant="highlight">
@@ -192,8 +182,7 @@ export function HomePage(): JSX.Element {
         navProps={{
           items: navItems,
           title: siteCopy.sidebarTitle,
-          note: siteCopy.sidebarNote,
-          labLinkLabel: siteCopy.labCta
+          note: siteCopy.sidebarNote
         }}
       />
     </main>

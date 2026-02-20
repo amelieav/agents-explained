@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { classNames } from "../../utils/classNames";
 import { sidebarVariantClass } from "./variants";
 import { SidebarNavProps } from "./types";
@@ -11,8 +10,7 @@ export function SidebarNav({
   variant = "pastel",
   className,
   title,
-  note,
-  labLinkLabel
+  note
 }: SidebarNavProps): JSX.Element {
   return (
     <nav aria-label="Section navigation" className={classNames("sidebar-nav", sidebarVariantClass[variant], className)}>
@@ -35,11 +33,6 @@ export function SidebarNav({
         ))}
       </ul>
 
-      {labLinkLabel ? (
-        <Link className="sidebar-nav__lab-link" to="/lab" onClick={onNavigate}>
-          {labLinkLabel}
-        </Link>
-      ) : null}
     </nav>
   );
 }

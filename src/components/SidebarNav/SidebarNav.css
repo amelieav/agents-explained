@@ -61,12 +61,3 @@
   background: color-mix(in srgb, var(--accent-highlight) 55%, var(--surface-layer) 45%);
   font-weight: 700;
 }
-
-.sidebar-nav__lab-link {
-  text-decoration: none;
-  color: var(--text-primary);
-  font-weight: 700;
-  font-size: var(--theme-size-action);
-  border-top: 1px dashed var(--border-soft);
-  padding-top: var(--space-sm);
-}

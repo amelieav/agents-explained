@@ -56,7 +56,7 @@ function edgePoints(from: PositionedLoopNode, to: PositionedLoopNode): { x1: num
   return { x1, y1, x2, y2, lx, ly };
 }
 
-export function AgentLoopDiagram({ steps, variant = "default", className }: AgentLoopDiagramProps): JSX.Element {
+function renderLoop(steps: AgentLoopDiagramProps["steps"]): JSX.Element {
   const diagramWidth = 980;
   const diagramHeight = 700;
   const hubX = 490;
@@ -83,106 +83,202 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
   const closeLoopTo = nodes[0];
 
   return (
-    <figure className={classNames("agent-loop", agentLoopVariantClass[variant], className)}>
-      <svg
-        viewBox={`0 0 ${diagramWidth} ${diagramHeight}`}
-        role="img"
-        aria-label="Detailed AI agent loop with orchestration, shared state, and feedback"
-      >
-        <defs>
-          <marker id="agent-loop-arrowhead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
-            <path d="M 0 0 L 9 4.5 L 0 9 z" className="agent-loop__arrowhead" />
-          </marker>
-        </defs>
+    <svg viewBox={`0 0 ${diagramWidth} ${diagramHeight}`} role="img" aria-label="Loop-based ecosystem diagram">
+      <defs>
+        <marker id="agent-loop-arrowhead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M 0 0 L 9 4.5 L 0 9 z" className="agent-loop__arrowhead" />
+        </marker>
+      </defs>
 
-        {nodes.map((node) => (
-          <line key={`${node.id}-sync`} x1={node.centerX} y1={node.centerY} x2={hubX} y2={hubY} className="agent-loop__sync" />
-        ))}
+      {nodes.map((node) => (
+        <line key={`${node.id}-sync`} x1={node.centerX} y1={node.centerY} x2={hubX} y2={hubY} className="agent-loop__sync" />
+      ))}
 
-        {nodes.map((node, index) => {
-          const next = nodes[(index + 1) % nodes.length];
-          const edge = edgePoints(node, next);
-          return (
-            <g key={`${node.id}-edge`}>
-              <line
-                x1={edge.x1}
-                y1={edge.y1}
-                x2={edge.x2}
-                y2={edge.y2}
-                className="agent-loop__edge"
-                markerEnd="url(#agent-loop-arrowhead)"
-              />
-              <text className="agent-loop__edge-label" x={edge.lx} y={edge.ly}>
-                {edgeLabels[index % edgeLabels.length]}
-              </text>
-            </g>
-          );
-        })}
-
-        {steps.length > 3 && retryFrom && retryTo ? (
-          <>
-            <path
-              d={`M ${retryFrom.centerX - 24} ${retryFrom.centerY - 32} C ${hubX + 26} ${hubY - 210}, ${hubX - 32} ${hubY - 216}, ${retryTo.centerX + 22} ${retryTo.centerY + 38}`}
-              className="agent-loop__feedback"
+      {nodes.map((node, index) => {
+        const next = nodes[(index + 1) % nodes.length];
+        const edge = edgePoints(node, next);
+        return (
+          <g key={`${node.id}-edge`}>
+            <line
+              x1={edge.x1}
+              y1={edge.y1}
+              x2={edge.x2}
+              y2={edge.y2}
+              className="agent-loop__edge"
               markerEnd="url(#agent-loop-arrowhead)"
             />
-            <text className="agent-loop__edge-label" x={hubX - 16} y={hubY - 216}>
-              Feedback retry
-            </text>
-          </>
-        ) : null}
-
-        {steps.length > 2 && closeLoopFrom && closeLoopTo ? (
-          <>
-            <path
-              d={`M ${closeLoopFrom.centerX + 42} ${closeLoopFrom.centerY - 10} C ${hubX - 10} ${hubY + 48}, ${hubX - 156} ${hubY - 24}, ${closeLoopTo.centerX - 26} ${closeLoopTo.centerY + 36}`}
-              className="agent-loop__feedback"
-              markerEnd="url(#agent-loop-arrowhead)"
-            />
-            <text className="agent-loop__edge-label" x={hubX - 214} y={hubY - 8}>
-              Updated context
-            </text>
-          </>
-        ) : null}
-
-        <circle cx={hubX} cy={hubY} r="84" className="agent-loop__hub" />
-        <text x={hubX} y={hubY - 8} className="agent-loop__hub-label">
-          Shared State
-        </text>
-        <text x={hubX} y={hubY + 18} className="agent-loop__hub-meta">
-          Memory • Tool logs • Budget
-        </text>
-
-        {nodes.map((node) => (
-          <g key={node.id}>
-            <rect
-              x={node.centerX - nodeWidth / 2}
-              y={node.centerY - nodeHeight / 2}
-              width={nodeWidth}
-              height={nodeHeight}
-              rx={18}
-              className="agent-loop__node"
-            />
-            <text x={node.centerX} y={node.centerY - 22} className="agent-loop__label">
-              {node.labelLines.map((line, lineIndex) => (
-                <tspan key={`${node.id}-label-${lineIndex}`} x={node.centerX} dy={lineIndex === 0 ? 0 : 16}>
-                  {line}
-                </tspan>
-              ))}
-            </text>
-            <text x={node.centerX} y={node.centerY + 18} className="agent-loop__detail">
-              {node.detailLines.map((line, lineIndex) => (
-                <tspan key={`${node.id}-line-${lineIndex}`} x={node.centerX} dy={lineIndex === 0 ? 0 : 14}>
-                  {line}
-                </tspan>
-              ))}
+            <text className="agent-loop__edge-label" x={edge.lx} y={edge.ly}>
+              {edgeLabels[index % edgeLabels.length]}
             </text>
           </g>
-        ))}
-      </svg>
-      <figcaption className="agent-loop__caption">
-        Each loop pattern coordinates orchestration, execution, shared state updates, and iterative feedback until completion.
-      </figcaption>
+        );
+      })}
+
+      {steps.length > 3 && retryFrom && retryTo ? (
+        <>
+          <path
+            d={`M ${retryFrom.centerX - 24} ${retryFrom.centerY - 32} C ${hubX + 26} ${hubY - 210}, ${hubX - 32} ${hubY - 216}, ${retryTo.centerX + 22} ${retryTo.centerY + 38}`}
+            className="agent-loop__feedback"
+            markerEnd="url(#agent-loop-arrowhead)"
+          />
+          <text className="agent-loop__edge-label" x={hubX - 16} y={hubY - 216}>
+            Feedback retry
+          </text>
+        </>
+      ) : null}
+
+      {steps.length > 2 && closeLoopFrom && closeLoopTo ? (
+        <>
+          <path
+            d={`M ${closeLoopFrom.centerX + 42} ${closeLoopFrom.centerY - 10} C ${hubX - 10} ${hubY + 48}, ${hubX - 156} ${hubY - 24}, ${closeLoopTo.centerX - 26} ${closeLoopTo.centerY + 36}`}
+            className="agent-loop__feedback"
+            markerEnd="url(#agent-loop-arrowhead)"
+          />
+          <text className="agent-loop__edge-label" x={hubX - 214} y={hubY - 8}>
+            Updated context
+          </text>
+        </>
+      ) : null}
+
+      <circle cx={hubX} cy={hubY} r="84" className="agent-loop__hub" />
+      <text x={hubX} y={hubY - 8} className="agent-loop__hub-label">
+        Shared State
+      </text>
+      <text x={hubX} y={hubY + 18} className="agent-loop__hub-meta">
+        Memory • Tool logs • Budget
+      </text>
+
+      {nodes.map((node) => (
+        <g key={node.id}>
+          <rect
+            x={node.centerX - nodeWidth / 2}
+            y={node.centerY - nodeHeight / 2}
+            width={nodeWidth}
+            height={nodeHeight}
+            rx={18}
+            className="agent-loop__node"
+          />
+          <text x={node.centerX} y={node.centerY - 22} className="agent-loop__label">
+            {node.labelLines.map((line, lineIndex) => (
+              <tspan key={`${node.id}-label-${lineIndex}`} x={node.centerX} dy={lineIndex === 0 ? 0 : 16}>
+                {line}
+              </tspan>
+            ))}
+          </text>
+          <text x={node.centerX} y={node.centerY + 18} className="agent-loop__detail">
+            {node.detailLines.map((line, lineIndex) => (
+              <tspan key={`${node.id}-line-${lineIndex}`} x={node.centerX} dy={lineIndex === 0 ? 0 : 14}>
+                {line}
+              </tspan>
+            ))}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function renderTopDown(steps: AgentLoopDiagramProps["steps"]): JSX.Element {
+  const diagramWidth = 980;
+  const diagramHeight = 700;
+  const centerX = 490;
+  const nodeWidth = 560;
+  const nodeHeight = 84;
+  const laneWidth = 640;
+  const firstCenterY = 92;
+  const verticalGap = 88;
+
+  const positioned = steps.map((step, index) => {
+    const centerY = firstCenterY + index * verticalGap;
+    return {
+      ...step,
+      centerX,
+      centerY,
+      labelLines: wrapLines(step.label, 36).slice(0, 2),
+      detailLines: wrapLines(step.detail, 64).slice(0, 1)
+    };
+  });
+
+  const laneTop = firstCenterY - nodeHeight / 2 - 20;
+  const laneHeight = Math.max(160, positioned.length * verticalGap);
+
+  return (
+    <svg viewBox={`0 0 ${diagramWidth} ${diagramHeight}`} role="img" aria-label="Top-down ecosystem diagram">
+      <defs>
+        <marker id="agent-topdown-arrowhead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M 0 0 L 9 4.5 L 0 9 z" className="agent-loop__arrowhead" />
+        </marker>
+      </defs>
+
+      <rect
+        x={centerX - laneWidth / 2}
+        y={laneTop}
+        width={laneWidth}
+        height={laneHeight}
+        rx={28}
+        className="agent-loop__lane"
+      />
+
+      {positioned.map((node, index) => {
+        if (index === positioned.length - 1) {
+          return null;
+        }
+
+        const next = positioned[index + 1];
+
+        return (
+          <line
+            key={`${node.id}-edge`}
+            x1={node.centerX}
+            y1={node.centerY + nodeHeight / 2 + 4}
+            x2={next.centerX}
+            y2={next.centerY - nodeHeight / 2 - 4}
+            className="agent-loop__edge"
+            markerEnd="url(#agent-topdown-arrowhead)"
+          />
+        );
+      })}
+
+      {positioned.map((node) => (
+        <g key={node.id}>
+          <rect
+            x={node.centerX - nodeWidth / 2}
+            y={node.centerY - nodeHeight / 2}
+            width={nodeWidth}
+            height={nodeHeight}
+            rx={18}
+            className="agent-loop__node"
+          />
+          <text x={node.centerX} y={node.centerY - 12} className="agent-loop__label">
+            {node.labelLines.map((line, lineIndex) => (
+              <tspan key={`${node.id}-label-${lineIndex}`} x={node.centerX} dy={lineIndex === 0 ? 0 : 16}>
+                {line}
+              </tspan>
+            ))}
+          </text>
+          <text x={node.centerX} y={node.centerY + 18} className="agent-loop__detail">
+            {node.detailLines.map((line, lineIndex) => (
+              <tspan key={`${node.id}-line-${lineIndex}`} x={node.centerX} dy={lineIndex === 0 ? 0 : 14}>
+                {line}
+              </tspan>
+            ))}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+export function AgentLoopDiagram({ steps, layout = "loop", variant = "default", className }: AgentLoopDiagramProps): JSX.Element {
+  const caption =
+    layout === "loop"
+      ? "Loop ecosystems iterate continuously with feedback and shared state until completion."
+      : "Top-down ecosystems orchestrate work from an entry point through ordered execution stages.";
+
+  return (
+    <figure className={classNames("agent-loop", agentLoopVariantClass[variant], className)}>
+      {layout === "loop" ? renderLoop(steps) : renderTopDown(steps)}
+      <figcaption className="agent-loop__caption">{caption}</figcaption>
     </figure>
   );
 }

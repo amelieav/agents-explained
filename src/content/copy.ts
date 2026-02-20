@@ -19,7 +19,7 @@ export const introCopy = {
     "An AI agent is software that accepts a goal, reasons through steps, uses tools, and checks its own work before returning results.",
   bullets: [
     "A chatbot can answer. An agent can act.",
-    "Agents are loops, not one-shot prompts.",
+    "Agent ecosystems are evolving quickly across frameworks and cloud platforms.",
     "Reliability comes from constraints and verification, not model power alone."
   ]
 };
@@ -79,10 +79,11 @@ export const agentLoopReferences: AgentLoopReference[] = [
   {
     id: "ag2",
     tabLabel: "AG2",
-    title: "AG2 (AutoGen) multi-agent collaboration loop",
+    title: "AG2 (AutoGen) collaborative ecosystem",
     sourceName: "ag2ai/ag2",
     sourceUrl: "https://github.com/ag2ai/ag2",
     why: "AG2 emphasizes role-specialized agents that delegate subtasks and iteratively exchange messages until completion.",
+    diagramKind: "loop",
     steps: [
       { id: "ag2-input", label: "Input / task definition", detail: "Receive user goal and scope." },
       { id: "ag2-create", label: "Agent creation", detail: "Spawn specialized role agents." },
@@ -96,10 +97,11 @@ export const agentLoopReferences: AgentLoopReference[] = [
   {
     id: "microsoft-agent-framework",
     tabLabel: "Microsoft AF",
-    title: "Microsoft Agent Framework orchestration loop",
+    title: "Microsoft Agent Framework orchestration architecture",
     sourceName: "Microsoft Agent Framework docs",
     sourceUrl: "https://learn.microsoft.com/en-us/agent-framework/overview/",
     why: "Microsoft treats agents and workflow orchestration as first-class primitives for both open-ended and deterministic enterprise flows.",
+    diagramKind: "topdown",
     steps: [
       { id: "ms-trigger", label: "Trigger / start", detail: "User or system initiates workflow." },
       { id: "ms-orchestrate", label: "Agent orchestration", detail: "Define multi-agent structure and routing." },
@@ -112,10 +114,11 @@ export const agentLoopReferences: AgentLoopReference[] = [
   {
     id: "google-cloud-multi-agent",
     tabLabel: "Google Cloud",
-    title: "Google Cloud coordinator-agent loop",
+    title: "Google Cloud coordinator-agent architecture",
     sourceName: "Google Cloud architecture docs",
     sourceUrl: "https://docs.cloud.google.com/architecture/multiagent-ai-system",
     why: "Google Cloud centers on a coordinator pattern for scalable decomposition, inter-agent communication, and iterative refinement.",
+    diagramKind: "topdown",
     steps: [
       { id: "gc-receive", label: "Receive request", detail: "Frontend/API accepts task." },
       { id: "gc-coordinator", label: "Coordinator agent", detail: "Decompose task and assign plan." },
@@ -129,10 +132,11 @@ export const agentLoopReferences: AgentLoopReference[] = [
   {
     id: "google-adk",
     tabLabel: "Google ADK",
-    title: "Google ADK workflow-agent loop",
+    title: "Google ADK workflow-agent architecture",
     sourceName: "Google ADK multi-agent docs",
     sourceUrl: "https://google.github.io/adk-docs/agents/multi-agents/",
     why: "ADK makes control flow itself agentic through SequentialAgent, ParallelAgent, and LoopAgent composition.",
+    diagramKind: "topdown",
     steps: [
       { id: "adk-define", label: "Define agents & hierarchy", detail: "Set base roles and topology." },
       { id: "adk-compose", label: "Compose workflow agents", detail: "Build sequential/parallel/loop controllers." },
@@ -146,10 +150,11 @@ export const agentLoopReferences: AgentLoopReference[] = [
   {
     id: "google-vertex-adk",
     tabLabel: "Vertex AI",
-    title: "Google Vertex AI + ADK feedback loop",
+    title: "Google Vertex AI + ADK feedback ecosystem",
     sourceName: "Google Cloud blog (ADK multi-agent systems)",
     sourceUrl: "https://cloud.google.com/blog/products/ai-machine-learning/build-multi-agentic-systems-using-google-adk",
     why: "Vertex AI guidance emphasizes continuous feedback between orchestrator and specialists until task criteria are satisfied.",
+    diagramKind: "loop",
     steps: [
       { id: "vertex-intake", label: "Task intake", detail: "Receive user goal via API/UI." },
       { id: "vertex-orchestrator", label: "Orchestrator agent", detail: "Split work into logical stages." },
@@ -163,10 +168,11 @@ export const agentLoopReferences: AgentLoopReference[] = [
   {
     id: "ag2-autobuild",
     tabLabel: "AutoBuild",
-    title: "AG2 AutoBuild generated workflow loop",
+    title: "AG2 AutoBuild generated workflow ecosystem",
     sourceName: "AG2 AutoBuild docs",
     sourceUrl: "https://docs.ag2.ai/latest/docs/blog/2023/11/26/Agent-AutoBuild/",
     why: "AutoBuild automates agent assembly from high-level prompts to reduce manual orchestration overhead and preserve iterative completion loops.",
+    diagramKind: "loop",
     steps: [
       { id: "auto-prompt", label: "User prompt", detail: "User describes high-level task." },
       { id: "auto-generate", label: "AgentBuilder generation", detail: "Create expert agents automatically." },
@@ -906,8 +912,8 @@ export const labCopy = {
 
 export const homeSectionCopy = {
   mentalModel: {
-    title: "Agent loop patterns from leading frameworks",
-    summary: "Compare six reputable orchestration patterns and inspect each loop step-by-step."
+    title: "Different agent ecosystems",
+    summary: "Agents are evolving quickly, and each ecosystem implements orchestration in a different way."
   },
   ecosystems: {
     title: "Multi-agent ecosystems at a glance",

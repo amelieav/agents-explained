@@ -1,12 +1,6 @@
 export type SectionId =
   | "intro"
   | "mental-model"
-  | "ecosystems"
-  | "framework-fit"
-  | "mcp"
-  | "org-patterns"
-  | "big-projects"
-  | "faq"
   | "releases";
 
 export interface NavItem {
@@ -62,5 +56,6 @@ export interface AgentLoopReference {
   sourceName: string;
   sourceUrl: string;
   why: string;
+  diagramKind: "loop" | "topdown";
   steps: LoopStep[];
 }

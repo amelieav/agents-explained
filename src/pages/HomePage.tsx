@@ -1,20 +1,15 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AgentLoopDiagram } from "../components/AgentLoopDiagram/AgentLoopDiagram";
-import { FAQAccordion } from "../components/FAQAccordion/FAQAccordion";
 import { MobileNavDrawer } from "../components/MobileNavDrawer/MobileNavDrawer";
 import { ReleaseFeed } from "../components/ReleaseFeed/ReleaseFeed";
 import { SectionShell } from "../components/SectionShell/SectionShell";
 import { SidebarNav } from "../components/SidebarNav/SidebarNav";
 import {
   agentLoopReferences,
-  bigProjectPractices,
-  faqItems,
   homeSectionCopy,
   introCopy,
-  organizationPatterns,
   releaseCopy,
-  sharedLabels,
   siteCopy
 } from "../content/copy";
 import { navItems } from "../content/sections";
@@ -72,7 +67,7 @@ export function HomePage(): JSX.Element {
             summary={homeSectionCopy.mentalModel.summary}
             variant="glass"
           >
-            <div className="home-page__loop-tabs" role="tablist" aria-label="Agent loop sources">
+            <div className="home-page__loop-tabs" role="tablist" aria-label="Agent ecosystem sources">
               {agentLoopReferences.map((reference) => (
                 <button
                   key={reference.id}
@@ -95,7 +90,7 @@ export function HomePage(): JSX.Element {
                 </a>
               </div>
               <p className="home-page__loop-why">{activeLoopReference.why}</p>
-              <AgentLoopDiagram steps={activeLoopReference.steps} />
+              <AgentLoopDiagram steps={activeLoopReference.steps} layout={activeLoopReference.diagramKind} />
               <ol className="home-page__ordered-list">
                 {activeLoopReference.steps.map((step) => (
                   <li key={step.id}>
@@ -104,65 +99,6 @@ export function HomePage(): JSX.Element {
                 ))}
               </ol>
             </div>
-          </SectionShell>
-
-          <SectionShell
-            id="ecosystems"
-            title={homeSectionCopy.ecosystems.title}
-            summary={homeSectionCopy.ecosystems.summary}
-          >
-            <div className="home-page__card-grid home-page__ecosystem-grid">
-              {agentLoopReferences.map((reference) => (
-                <article className="home-page__card" key={reference.id}>
-                  <p className="home-page__card-tag">{reference.tabLabel}</p>
-                  <h3>{reference.title}</h3>
-                  <p>{reference.why}</p>
-                  <p>
-                    <strong>Loop stages:</strong> {reference.steps.length}
-                  </p>
-                  <a className="home-page__card-link" href={reference.sourceUrl} target="_blank" rel="noreferrer">
-                    {reference.sourceName}
-                  </a>
-                </article>
-              ))}
-            </div>
-          </SectionShell>
-
-          <SectionShell
-            id="org-patterns"
-            title={homeSectionCopy.organization.title}
-            summary={homeSectionCopy.organization.summary}
-          >
-            <div className="home-page__card-grid">
-              {organizationPatterns.map((item) => (
-                <article className="home-page__card" key={item.name}>
-                  <h3>{item.name}</h3>
-                  <p>
-                    <strong>{sharedLabels.whenToUse}:</strong> {item.whenToUse}
-                  </p>
-                  <p>
-                    <strong>{sharedLabels.risk}:</strong> {item.risk}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </SectionShell>
-
-          <SectionShell
-            id="big-projects"
-            title={homeSectionCopy.practices.title}
-            summary={homeSectionCopy.practices.summary}
-            variant="glass"
-          >
-            <ul className="home-page__bullet-list">
-              {bigProjectPractices.map((practice) => (
-                <li key={practice}>{practice}</li>
-              ))}
-            </ul>
-          </SectionShell>
-
-          <SectionShell id="faq" title={homeSectionCopy.faq.title} summary={homeSectionCopy.faq.summary}>
-            <FAQAccordion items={faqItems} variant="soft" />
           </SectionShell>
 
           <SectionShell id="releases" title={releaseCopy.heading} summary={releaseCopy.subheading}>

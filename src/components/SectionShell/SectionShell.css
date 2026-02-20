@@ -1,0 +1,9 @@
+.section-shell {
+  scroll-margin-top: 84px;
+}
+
+.section-shell__content {
+  margin-top: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}

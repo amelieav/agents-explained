@@ -3,10 +3,13 @@ stages:
 
 pages:
   stage: deploy
-  image: alpine:3.20
+  image: node:20-alpine
   script:
+    - npm install --no-audit --no-fund
+    - npm run lint:tokens
+    - VITE_BASE_PATH="/$CI_PROJECT_NAME/" npm run build
     - mkdir -p public
-    - cp index.html styles.css app.js public/
+    - cp -r dist/* public/
   artifacts:
     paths:
       - public

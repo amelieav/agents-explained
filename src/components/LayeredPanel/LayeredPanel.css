@@ -1,0 +1,31 @@
+.layered-panel {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-lg);
+  isolation: isolate;
+}
+
+.layered-panel::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed var(--border-soft);
+  border-radius: calc(var(--radius-lg) - 8px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.layered-panel--soft {
+  background: var(--surface-layer);
+}
+
+.layered-panel--glass {
+  background: color-mix(in srgb, var(--surface-layer) 82%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.layered-panel--highlight {
+  background: color-mix(in srgb, var(--surface-card) 62%, var(--accent-primary) 38%);
+}

@@ -1,85 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>How AI Agents Work</title>
-    <meta
-      name="description"
-      content="Simple explanations of how AI agents work, plus a live feed of project releases."
-    />
+    <title>Agents Explained</title>
+    <meta name="description" content="A practical guide to how AI agents work." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Literata:opsz,wght@7..72,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="orb orb-left"></div>
-    <div class="orb orb-right"></div>
-
-    <main class="page">
-      <header class="hero">
-        <p class="eyebrow">AI Agents, Explained</p>
-        <h1>How AI Agents Work</h1>
-        <p class="lede">
-          An AI agent is software that can understand a goal, make a plan,
-          use tools, and take actions to complete that goal.
-        </p>
-      </header>
-
-      <section class="panel">
-        <h2>Core Ideas</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Goal</h3>
-            <p>The thing the agent is trying to achieve.</p>
-          </article>
-          <article class="card">
-            <h3>Model</h3>
-            <p>The AI brain that reads context and suggests next actions.</p>
-          </article>
-          <article class="card">
-            <h3>Tools</h3>
-            <p>External capabilities like search, APIs, databases, or files.</p>
-          </article>
-          <article class="card">
-            <h3>Memory</h3>
-            <p>Useful facts saved between steps so progress is not lost.</p>
-          </article>
-          <article class="card">
-            <h3>Planning</h3>
-            <p>Breaking a big request into small tasks in a useful order.</p>
-          </article>
-          <article class="card">
-            <h3>Feedback</h3>
-            <p>Checking results and correcting mistakes before final output.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2>Typical Agent Loop</h2>
-        <ol class="timeline">
-          <li><strong>Understand:</strong> Parse the user request and constraints.</li>
-          <li><strong>Plan:</strong> Pick the next best step.</li>
-          <li><strong>Act:</strong> Use a tool or produce a result.</li>
-          <li><strong>Evaluate:</strong> Check if the result is correct.</li>
-          <li><strong>Repeat:</strong> Continue until the goal is complete.</li>
-        </ol>
-      </section>
-
-      <section class="panel">
-        <div class="release-header">
-          <h2>Latest Releases</h2>
-          <p>Auto-loaded from GitLab Releases API.</p>
-        </div>
-        <ul id="release-list" class="release-list" aria-live="polite"></ul>
-      </section>
-    </main>
-
-    <script src="app.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

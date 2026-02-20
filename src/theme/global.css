@@ -1,0 +1,84 @@
+:root {
+  --theme-font-display: "Baloo 2", "Trebuchet MS", cursive;
+  --theme-font-body: "Nunito", "Segoe UI", sans-serif;
+  --theme-size-hero: 3rem;
+  --theme-size-section: 2rem;
+  --theme-size-body: 1rem;
+  --theme-size-caption: 0.9rem;
+  --theme-size-card-title: 1.2rem;
+  --theme-size-compact-title: 1.25rem;
+  --theme-size-action: 0.95rem;
+  --theme-size-diagram-label: 16px;
+
+  --space-xxs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-xxl: 3.25rem;
+
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  --motion-quick: 140ms;
+  --motion-standard: 240ms;
+
+  --surface-page: Canvas;
+  --surface-layer: Canvas;
+  --surface-card: Canvas;
+  --border-soft: GrayText;
+  --text-primary: CanvasText;
+  --text-muted: GrayText;
+  --accent-primary: Highlight;
+  --accent-secondary: Highlight;
+  --accent-highlight: Highlight;
+  --shadow-soft: none;
+  --shadow-strong: none;
+
+  --content-width: min(1160px, 95vw);
+  --sidebar-width: 280px;
+}
+
+:root[data-density="compact"] {
+  --space-md: 0.8rem;
+  --space-lg: 1.2rem;
+  --space-xl: 1.8rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--theme-font-body);
+  color: var(--text-primary);
+  background:
+    radial-gradient(circle at 8% 8%, var(--accent-primary), transparent 34%),
+    radial-gradient(circle at 90% 6%, var(--accent-secondary), transparent 35%),
+    radial-gradient(circle at 16% 78%, var(--accent-highlight), transparent 31%),
+    var(--surface-page);
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+code,
+pre {
+  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+}

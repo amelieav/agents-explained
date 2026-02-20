@@ -1,0 +1,39 @@
+.glossary-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-layer);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-soft);
+}
+
+.glossary-card h3 {
+  margin: 0;
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-card-title);
+}
+
+.glossary-card p {
+  margin: var(--space-sm) 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.glossary-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.glossary-card li {
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-soft);
+  padding: var(--space-xxs) var(--space-sm);
+  font-size: var(--theme-size-caption);
+}
+
+.glossary-card--bordered {
+  border-style: dashed;
+}

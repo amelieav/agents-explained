@@ -1,0 +1,43 @@
+.agent-loop {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.agent-loop svg {
+  width: 100%;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface-layer) 70%, var(--accent-primary) 30%);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-sm);
+}
+
+.agent-loop__edge {
+  stroke: var(--text-muted);
+  stroke-width: 2;
+  stroke-dasharray: 6;
+}
+
+.agent-loop__node {
+  fill: color-mix(in srgb, var(--surface-card) 72%, var(--accent-secondary) 28%);
+  stroke: var(--border-soft);
+  stroke-width: 1.5;
+}
+
+.agent-loop__label {
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-diagram-label);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  fill: var(--text-primary);
+}
+
+.agent-loop__caption {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--theme-size-caption);
+}
+
+.agent-loop--compact svg {
+  padding: var(--space-xs);
+}

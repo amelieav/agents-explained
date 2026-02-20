@@ -10,5 +10,4 @@ export interface SidebarNavProps {
   className?: string;
   title: string;
   note?: string;
-  labLinkLabel?: string;
 }

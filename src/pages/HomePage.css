@@ -75,14 +75,6 @@
   display: none;
 }
 
-.home-page__lab-link {
-  position: relative;
-  z-index: 1;
-  margin-top: var(--space-sm);
-  display: inline-block;
-  font-weight: 700;
-}
-
 .home-page__card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

@@ -7,7 +7,6 @@ export const siteCopy = {
     "A practical guide for developers who want clear architecture choices, not just buzzwords.",
   sidebarTitle: "Guide Map",
   sidebarNote: "Scroll naturally or jump by section.",
-  labCta: "Open Component Lab",
   mobileMenuLabel: "Open section menu",
   releaseEndpoint: "https://api.github.com/repos/amelieav/agents-explained/releases?per_page=8"
 };

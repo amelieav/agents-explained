@@ -56,6 +56,12 @@ export interface AgentLoopReference {
   sourceName: string;
   sourceUrl: string;
   why: string;
-  diagramKind: "loop" | "topdown";
+  diagramKind:
+    | "conversation-web"
+    | "orchestrator-ladder"
+    | "coordinator-fanout"
+    | "controller-stack"
+    | "feedback-loop"
+    | "autobuild-pipeline";
   steps: LoopStep[];
 }

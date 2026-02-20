@@ -6,10 +6,33 @@
   box-shadow: var(--shadow-soft);
 }
 
+.glossary-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
 .glossary-card h3 {
   margin: 0;
   font-family: var(--theme-font-display);
   font-size: var(--theme-size-card-title);
+}
+
+.glossary-card__save {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-layer);
+  color: var(--text-primary);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xxs) var(--space-sm);
+  font: inherit;
+  font-size: var(--theme-size-caption);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.glossary-card__save--active {
+  background: color-mix(in srgb, var(--accent-highlight) 50%, var(--surface-layer) 50%);
 }
 
 .glossary-card p {

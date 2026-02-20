@@ -75,6 +75,19 @@
   display: none;
 }
 
+.home-page__glossary-link {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-sm);
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xxs) var(--space-md);
+  background: color-mix(in srgb, var(--surface-layer) 78%, var(--accent-primary) 22%);
+}
+
 .home-page__card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

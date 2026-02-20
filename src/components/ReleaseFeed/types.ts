@@ -6,6 +6,7 @@ export interface ReleaseFeedProps {
   loadingLabel: string;
   errorLabel: string;
   noNotesLabel: string;
+  maxItems?: number;
   variant?: ReleaseFeedVariant;
   className?: string;
 }

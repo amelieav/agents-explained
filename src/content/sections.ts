@@ -9,6 +9,5 @@ export const navItems: NavItem[] = [
   { id: "org-patterns", label: "Org Patterns" },
   { id: "big-projects", label: "Big Project Practices" },
   { id: "faq", label: "FAQ" },
-  { id: "glossary", label: "Glossary" },
   { id: "releases", label: "Releases" }
 ];

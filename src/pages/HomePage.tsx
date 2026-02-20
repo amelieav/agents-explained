@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { AgentLoopDiagram } from "../components/AgentLoopDiagram/AgentLoopDiagram";
 import { FAQAccordion } from "../components/FAQAccordion/FAQAccordion";
-import { GlossaryTermCard } from "../components/GlossaryTermCard/GlossaryTermCard";
 import { MobileNavDrawer } from "../components/MobileNavDrawer/MobileNavDrawer";
 import { ReleaseFeed } from "../components/ReleaseFeed/ReleaseFeed";
 import { SectionShell } from "../components/SectionShell/SectionShell";
@@ -11,7 +11,6 @@ import {
   faqItems,
   frameworkFit,
   frameworkTableCopy,
-  glossaryItems,
   homeSectionCopy,
   introCopy,
   loopSteps,
@@ -46,6 +45,9 @@ export function HomePage(): JSX.Element {
             <button className="home-page__menu-button" type="button" onClick={() => setDrawerOpen(true)}>
               {siteCopy.mobileMenuLabel}
             </button>
+            <Link className="home-page__glossary-link" to="/glossary">
+              {siteCopy.glossaryCta}
+            </Link>
           </header>
 
           <SectionShell id="intro" title={introCopy.heading} summary={introCopy.summary} variant="highlight">
@@ -155,14 +157,6 @@ export function HomePage(): JSX.Element {
             <FAQAccordion items={faqItems} variant="soft" />
           </SectionShell>
 
-          <SectionShell id="glossary" title={homeSectionCopy.glossary.title} summary={homeSectionCopy.glossary.summary} variant="glass">
-            <div className="home-page__card-grid">
-              {glossaryItems.map((item) => (
-                <GlossaryTermCard key={item.term} item={item} variant="bordered" />
-              ))}
-            </div>
-          </SectionShell>
-
           <SectionShell id="releases" title={releaseCopy.heading} summary={releaseCopy.subheading}>
             <ReleaseFeed
               endpoint={siteCopy.releaseEndpoint}
@@ -170,6 +164,7 @@ export function HomePage(): JSX.Element {
               emptyLabel={releaseCopy.empty}
               errorLabel={releaseCopy.error}
               noNotesLabel={releaseCopy.noNotes}
+              maxItems={1}
             />
           </SectionShell>
         </div>

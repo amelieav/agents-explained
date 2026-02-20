@@ -7,8 +7,9 @@ export const siteCopy = {
     "A practical guide for developers who want clear architecture choices, not just buzzwords.",
   sidebarTitle: "Guide Map",
   sidebarNote: "Scroll naturally or jump by section.",
+  glossaryCta: "Open Glossary",
   mobileMenuLabel: "Open section menu",
-  releaseEndpoint: "https://api.github.com/repos/amelieav/agents-explained/releases?per_page=8"
+  releaseEndpoint: "https://api.github.com/repos/amelieav/agents-explained/releases?per_page=1"
 };
 
 export const introCopy = {
@@ -215,12 +216,31 @@ export const glossaryItems: GlossaryItem[] = [
 ];
 
 export const releaseCopy = {
-  heading: "Latest Releases",
+  heading: "Latest Tag",
   subheading: "Auto-loaded from GitHub Releases API, with tag fallback.",
   loading: "Loading releases...",
   empty: "No releases or tags found yet.",
   error: "Could not load releases right now.",
   noNotes: "No release notes yet."
+};
+
+export const glossaryPageCopy = {
+  eyebrow: "Reference",
+  title: "Glossary",
+  subtitle: "Search terms, apply filters, and save entries to pin them to the top when you return.",
+  searchLabel: "Search terms or definitions",
+  searchPlaceholder: "Try: guardrail, planner, schema...",
+  filterLabel: "Filter",
+  filterAll: "All terms",
+  filterSaved: "Saved only",
+  filterRelated: "Has related tags",
+  searchButton: "Search",
+  clearButton: "Clear",
+  saveButton: "Save",
+  savedButton: "Saved",
+  resultLabel: "results",
+  backLabel: "Back to guide",
+  empty: "No glossary terms match this search/filter."
 };
 
 export const labCopy = {

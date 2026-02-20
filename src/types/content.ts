@@ -7,7 +7,6 @@ export type SectionId =
   | "org-patterns"
   | "big-projects"
   | "faq"
-  | "glossary"
   | "releases";
 
 export interface NavItem {

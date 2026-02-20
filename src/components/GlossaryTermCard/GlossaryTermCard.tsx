@@ -3,10 +3,29 @@ import { glossaryVariantClass } from "./variants";
 import { GlossaryTermCardProps } from "./types";
 import "./GlossaryTermCard.css";
 
-export function GlossaryTermCard({ item, variant = "default", className }: GlossaryTermCardProps): JSX.Element {
+export function GlossaryTermCard({
+  item,
+  saved = false,
+  saveLabel = "Save",
+  savedLabel = "Saved",
+  onToggleSave,
+  variant = "default",
+  className
+}: GlossaryTermCardProps): JSX.Element {
   return (
     <article className={classNames("glossary-card", glossaryVariantClass[variant], className)}>
-      <h3>{item.term}</h3>
+      <header className="glossary-card__header">
+        <h3>{item.term}</h3>
+        {onToggleSave ? (
+          <button
+            className={classNames("glossary-card__save", saved && "glossary-card__save--active")}
+            type="button"
+            onClick={() => onToggleSave(item.term)}
+          >
+            {saved ? savedLabel : saveLabel}
+          </button>
+        ) : null}
+      </header>
       <p>{item.definition}</p>
       {item.related && item.related.length > 0 ? (
         <ul>

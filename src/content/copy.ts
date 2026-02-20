@@ -7,6 +7,7 @@ export const siteCopy = {
     "A practical guide for developers who want clear architecture choices, not just buzzwords.",
   sidebarTitle: "Guide Map",
   sidebarNote: "Scroll naturally or jump by section.",
+  comparisonsCta: "Open Comparisons",
   glossaryCta: "Open Glossary",
   mobileMenuLabel: "Open section menu",
   releaseEndpoint: "https://api.github.com/repos/amelieav/agents-explained/releases?per_page=1"
@@ -870,6 +871,21 @@ export const glossaryPageCopy = {
   empty: "No glossary terms match this search/filter."
 };
 
+export const comparisonPageCopy = {
+  eyebrow: "Architecture Decisions",
+  title: "Comparisons",
+  subtitle:
+    "Use this page for side-by-side choices. Keep the landing page focused on loop mechanics and multi-agent ecosystems.",
+  backLabel: "Back to landing",
+  glossaryLabel: "Open glossary",
+  mcpDecisionTitle: "How to use this comparison",
+  mcpDecisionPoints: [
+    "If it executes actions, that is a tool.",
+    "If it provides reference context, that is docs/knowledge.",
+    "If it standardizes the connection between model and capability, that is MCP."
+  ]
+};
+
 export const labCopy = {
   title: "Component Lab",
   subtitle:
@@ -892,6 +908,10 @@ export const homeSectionCopy = {
   mentalModel: {
     title: "Agent loop patterns from leading frameworks",
     summary: "Compare six reputable orchestration patterns and inspect each loop step-by-step."
+  },
+  ecosystems: {
+    title: "Multi-agent ecosystems at a glance",
+    summary: "Survey the major ecosystems and quickly see what each loop optimizes for."
   },
   loop: {
     title: "Execution loop with shared state and feedback",

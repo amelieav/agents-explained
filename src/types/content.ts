@@ -1,6 +1,7 @@
 export type SectionId =
   | "intro"
   | "mental-model"
+  | "ecosystems"
   | "framework-fit"
   | "mcp"
   | "org-patterns"

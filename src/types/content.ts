@@ -37,7 +37,7 @@ export interface ReleaseItem {
   tag: string;
   name: string;
   url: string;
-  publishedAt: string;
+  publishedAt?: string;
   summary: string;
 }
 

@@ -6,11 +6,16 @@ import { ReleaseFeedProps } from "./types";
 import "./ReleaseFeed.css";
 
 function formatDate(value: string): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric"
-  }).format(new Date(value));
+  }).format(date);
 }
 
 function summarize(text: string | null | undefined, noNotesLabel: string): string {
@@ -33,6 +38,133 @@ interface GitlabRelease {
   };
 }
 
+interface GithubRelease {
+  tag_name: string;
+  name?: string;
+  body?: string;
+  html_url?: string;
+  created_at: string;
+  published_at?: string;
+}
+
+interface GitTag {
+  name: string;
+  message?: string;
+  release?: {
+    description?: string;
+  };
+  commit?: {
+    committed_date?: string;
+    created_at?: string;
+  };
+}
+
+function parseRepoUrl(endpoint: string): URL | null {
+  try {
+    return new URL(endpoint);
+  } catch {
+    return null;
+  }
+}
+
+function getRepositoryUrl(endpoint: string): string | null {
+  const parsed = parseRepoUrl(endpoint);
+  if (!parsed) {
+    return null;
+  }
+
+  const parts = parsed.pathname.split("/").filter(Boolean);
+
+  if (parsed.hostname === "api.github.com" && parts[0] === "repos" && parts.length >= 3) {
+    return `https://github.com/${parts[1]}/${parts[2]}`;
+  }
+
+  if (parsed.hostname === "gitlab.com") {
+    const projectIndex = parts.indexOf("projects");
+    if (projectIndex >= 0 && parts[projectIndex + 1]) {
+      return `https://gitlab.com/${decodeURIComponent(parts[projectIndex + 1])}`;
+    }
+  }
+
+  return null;
+}
+
+function getTagUrl(endpoint: string, tag: string): string {
+  const repositoryUrl = getRepositoryUrl(endpoint);
+  if (!repositoryUrl) {
+    return "#";
+  }
+
+  if (repositoryUrl.includes("github.com")) {
+    return `${repositoryUrl}/releases/tag/${encodeURIComponent(tag)}`;
+  }
+
+  return `${repositoryUrl}/-/tags/${encodeURIComponent(tag)}`;
+}
+
+function mapReleasePayload(payload: unknown, endpoint: string, noNotesLabel: string): ReleaseItem[] {
+  if (!Array.isArray(payload) || payload.length === 0) {
+    return [];
+  }
+
+  const [first] = payload;
+  if (!first || typeof first !== "object") {
+    return [];
+  }
+
+  if ("tag_name" in first) {
+    const releases = payload as Array<GitlabRelease | GithubRelease>;
+    return releases.map((release) => ({
+      tag: release.tag_name,
+      name: release.name || release.tag_name,
+      url:
+        ("html_url" in release && release.html_url) ||
+        ("_links" in release ? release._links?.self : undefined) ||
+        getTagUrl(endpoint, release.tag_name),
+      publishedAt:
+        ("released_at" in release && release.released_at) ||
+        ("published_at" in release && release.published_at) ||
+        release.created_at,
+      summary: summarize(
+        ("description" in release ? release.description : undefined) ||
+          ("body" in release ? release.body : undefined),
+        noNotesLabel
+      )
+    }));
+  }
+
+  if ("name" in first) {
+    const tags = payload as GitTag[];
+    return tags.map((tag) => ({
+      tag: tag.name,
+      name: tag.name,
+      url: getTagUrl(endpoint, tag.name),
+      publishedAt: tag.commit?.committed_date || tag.commit?.created_at,
+      summary: summarize(tag.release?.description || tag.message, noNotesLabel)
+    }));
+  }
+
+  return [];
+}
+
+function toTagEndpoint(endpoint: string): string | null {
+  return endpoint.includes("/releases") ? endpoint.replace("/releases", "/tags") : null;
+}
+
+async function fetchPayload(endpoint: string): Promise<unknown> {
+  const response = await fetch(endpoint, {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch release feed");
+  }
+
+  return response.json();
+}
+
 export function ReleaseFeed({
   endpoint,
   emptyLabel,
@@ -52,28 +184,19 @@ export function ReleaseFeed({
       setState("loading");
 
       try {
-        const response = await fetch(endpoint, {
-          headers: {
-            Accept: "application/json"
+        const releasePayload = await fetchPayload(endpoint);
+        let mapped = mapReleasePayload(releasePayload, endpoint, noNotesLabel);
+        if (mapped.length === 0) {
+          const tagEndpoint = toTagEndpoint(endpoint);
+          if (tagEndpoint) {
+            const tagPayload = await fetchPayload(tagEndpoint);
+            mapped = mapReleasePayload(tagPayload, tagEndpoint, noNotesLabel);
           }
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch release feed");
         }
 
-        const payload = (await response.json()) as GitlabRelease[];
         if (!mounted) {
           return;
         }
-
-        const mapped: ReleaseItem[] = payload.map((release) => ({
-          tag: release.tag_name,
-          name: release.name || release.tag_name,
-          url: release._links?.self || "#",
-          publishedAt: release.released_at || release.created_at,
-          summary: summarize(release.description, noNotesLabel)
-        }));
 
         setItems(mapped);
         setState("loaded");
@@ -110,9 +233,7 @@ export function ReleaseFeed({
           <a href={item.url} target="_blank" rel="noreferrer">
             {item.name}
           </a>
-          <p className="release-feed__meta">
-            {item.tag} - {formatDate(item.publishedAt)}
-          </p>
+          <p className="release-feed__meta">{item.publishedAt ? `${item.tag} - ${formatDate(item.publishedAt)}` : item.tag}</p>
           <p className="release-feed__summary">{item.summary}</p>
         </li>
       ))}

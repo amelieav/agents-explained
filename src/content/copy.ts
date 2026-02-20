@@ -9,8 +9,7 @@ export const siteCopy = {
   sidebarNote: "Scroll naturally or jump by section.",
   labCta: "Open Component Lab",
   mobileMenuLabel: "Open section menu",
-  releaseEndpoint:
-    "https://gitlab.com/api/v4/projects/" + encodeURIComponent("ai-agent-coded/agents-explained") + "/releases?per_page=8"
+  releaseEndpoint: "https://api.github.com/repos/amelieav/agents-explained/releases?per_page=8"
 };
 
 export const introCopy = {
@@ -218,9 +217,9 @@ export const glossaryItems: GlossaryItem[] = [
 
 export const releaseCopy = {
   heading: "Latest Releases",
-  subheading: "Auto-loaded from GitLab Releases API.",
+  subheading: "Auto-loaded from GitHub Releases API, with tag fallback.",
   loading: "Loading releases...",
-  empty: "No releases found yet. Publish a GitLab release to populate this feed.",
+  empty: "No releases or tags found yet.",
   error: "Could not load releases right now.",
   noNotes: "No release notes yet."
 };

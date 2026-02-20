@@ -1,0 +1,38 @@
+.bubble-heading {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.bubble-heading__eyebrow {
+  margin: 0;
+  font-size: var(--theme-size-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.bubble-heading__title {
+  margin: 0;
+  font-family: var(--theme-font-display);
+  line-height: 1;
+}
+
+.bubble-heading__subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 68ch;
+}
+
+.bubble-heading--hero .bubble-heading__title {
+  font-size: var(--theme-size-hero);
+}
+
+.bubble-heading--section .bubble-heading__title {
+  font-size: var(--theme-size-section);
+}
+
+.bubble-heading--compact .bubble-heading__title {
+  font-size: var(--theme-size-compact-title);
+}

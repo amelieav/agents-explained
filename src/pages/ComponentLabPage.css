@@ -1,0 +1,97 @@
+.lab-page {
+  padding: var(--space-xl) 0 var(--space-xxl);
+}
+
+.lab-page__container {
+  width: var(--content-width);
+  margin: 0 auto;
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.lab-page__header {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--surface-layer) 72%, var(--accent-secondary) 28%);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-xl);
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.lab-page__header p,
+.lab-page__header h1 {
+  margin: 0;
+}
+
+.lab-page__header p:first-child {
+  font-size: var(--theme-size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.lab-page__header h1 {
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-hero);
+  line-height: 1;
+}
+
+.lab-page__header p:last-of-type {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.lab-page__controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-sm);
+}
+
+.lab-page__controls label {
+  display: grid;
+  gap: var(--space-xxs);
+  color: var(--text-muted);
+  font-size: var(--theme-size-caption);
+}
+
+.lab-page__controls select,
+.lab-page__controls input {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs);
+  font: inherit;
+  color: var(--text-primary);
+  background: var(--surface-layer);
+}
+
+.lab-page__showcase {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.lab-page__showcase h2 {
+  margin: 0 0 var(--space-sm);
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-section);
+}
+
+.lab-page__snippet {
+  margin-top: var(--space-md);
+}
+
+.lab-page__snippet p {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--theme-size-caption);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.lab-page__snippet pre {
+  margin: 0;
+  overflow: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-layer);
+  padding: var(--space-sm);
+}

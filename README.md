@@ -1,43 +1,49 @@
 # Agents Explained
 
-Static site that explains how AI agents work in simple language.
+A pastel-themed educational site that explains how AI agents work, with a component-driven architecture and centralized theme/content registries.
 
-## What this includes
+## Highlights
 
-- A responsive page with clear AI agent definitions and workflow basics.
-- A live "Latest Releases" section loaded from GitLab Releases API.
-- GitLab Pages deployment on every pushed tag (release workflow).
+- React + Vite + TypeScript frontend.
+- Long-form guide with sticky sidebar navigation and mobile drawer menu.
+- In-app component preview route at `/lab` for isolated UI tweaks.
+- Single source of truth for theme tokens and reusable copy.
+- GitLab Releases feed rendered in-page.
 
-## Files
+## Architecture
 
-- `index.html`: page structure/content
-- `styles.css`: visual design
-- `app.js`: release feed from GitLab API
-- `.gitlab-ci.yml`: GitLab Pages deploy job
+- `src/theme/tokens.ts`: raw design tokens (colors, type, spacing, radius, shadows, motion)
+- `src/theme/semantic.ts`: semantic alias mapping
+- `src/theme/global.css`: CSS variable usage and global styles
+- `src/content/copy.ts`: shared text content
+- `src/content/sections.ts`: sidebar and section metadata
+- `src/components/*`: typed, variant-based reusable UI components
+- `planning/ui-tweakability-plan.md`: implementation note + checklist
 
-## Deploy model
-
-This project deploys with **GitLab Pages** (not GitHub Pages) because the code is hosted on GitLab.
-
-The pipeline runs when you push a tag (`$CI_COMMIT_TAG`).
-
-## Release and publish
-
-1. Commit changes to `main`.
-2. Create and push a tag:
+## Local development
 
 ```bash
-git tag v1.0.0
-git push origin v1.0.0
+npm install
+npm run dev
 ```
 
-3. (Optional, recommended) Create a GitLab Release attached to that tag.
-4. GitLab Pages deploys from the tag pipeline.
+## Guardrails
 
-Expected site URL pattern:
+```bash
+npm run lint:tokens
+```
 
-`https://<namespace>.gitlab.io/<project>/`
+Fails if raw color literals appear in component files.
 
-For this repo that is typically:
+## Build
 
-`https://ai-agent-coded.gitlab.io/agents-explained/`
+```bash
+npm run build
+```
+
+## Deployment
+
+- GitHub Pages workflow: `.github/workflows/deploy-pages.yml`
+- GitLab Pages pipeline: `.gitlab-ci.yml`
+
+Both deploy from tags (`v*` on GitHub, `$CI_COMMIT_TAG` on GitLab).

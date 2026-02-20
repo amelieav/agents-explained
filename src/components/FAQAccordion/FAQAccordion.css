@@ -1,0 +1,26 @@
+.faq-accordion {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.faq-accordion__item {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--surface-layer);
+}
+
+.faq-accordion__item summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.faq-accordion__item p {
+  margin: var(--space-sm) 0 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.faq-accordion--soft .faq-accordion__item {
+  background: color-mix(in srgb, var(--surface-layer) 72%, var(--accent-highlight) 28%);
+}

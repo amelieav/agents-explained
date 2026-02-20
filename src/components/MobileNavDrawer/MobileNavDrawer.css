@@ -1,0 +1,46 @@
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.mobile-drawer__scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  opacity: 0;
+  transition: opacity var(--motion-standard);
+}
+
+.mobile-drawer__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(86vw, 320px);
+  padding: var(--space-md);
+  transform: translateX(100%);
+  transition: transform var(--motion-standard);
+}
+
+.mobile-drawer--open {
+  pointer-events: auto;
+}
+
+.mobile-drawer--open .mobile-drawer__scrim {
+  opacity: 1;
+}
+
+.mobile-drawer--open .mobile-drawer__panel {
+  transform: translateX(0);
+}
+
+.mobile-drawer--pastel .mobile-drawer__panel {
+  background: color-mix(in srgb, var(--surface-layer) 75%, var(--accent-secondary) 25%);
+}
+
+.mobile-drawer--subtle .mobile-drawer__panel {
+  background: var(--surface-layer);
+}

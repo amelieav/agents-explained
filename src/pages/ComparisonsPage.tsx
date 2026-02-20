@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import { SectionShell } from "../components/SectionShell/SectionShell";
-import { comparisonPageCopy, frameworkFit, frameworkTableCopy, homeSectionCopy, mcpCopy } from "../content/copy";
+import {
+  comparisonPageCopy,
+  frameworkFit,
+  frameworkTableCopy,
+  homeSectionCopy,
+  mcpCopy,
+  similarTermsComparisons
+} from "../content/copy";
 import "./ComparisonsPage.css";
 
 export function ComparisonsPage(): JSX.Element {
@@ -59,6 +66,48 @@ export function ComparisonsPage(): JSX.Element {
               ))}
             </ul>
           </article>
+        </SectionShell>
+
+        <SectionShell
+          id="similar-terms"
+          title={comparisonPageCopy.similarTermsTitle}
+          summary={comparisonPageCopy.similarTermsSummary}
+        >
+          <div className="comparisons-page__table-wrap">
+            <table className="comparisons-page__table comparisons-page__table--similar">
+              <thead>
+                <tr>
+                  <th>{comparisonPageCopy.similarTermsColumns.terms}</th>
+                  <th>{comparisonPageCopy.similarTermsColumns.difference}</th>
+                  <th>{comparisonPageCopy.similarTermsColumns.chooseRule}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {similarTermsComparisons.map((item) => (
+                  <tr key={`${item.leftTerm}-${item.rightTerm}`}>
+                    <td>
+                      <p className="comparisons-page__pair-title">
+                        {item.leftTerm} vs {item.rightTerm}
+                      </p>
+                      <p>
+                        <strong>{item.leftTerm}:</strong> {item.leftIs}
+                      </p>
+                      <p>
+                        <strong>{item.rightTerm}:</strong> {item.rightIs}
+                      </p>
+                    </td>
+                    <td>
+                      <p>{item.keyDifference}</p>
+                      <p className="comparisons-page__example">
+                        <strong>Example:</strong> {item.example}
+                      </p>
+                    </td>
+                    <td>{item.chooseRule}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </SectionShell>
       </div>
     </main>

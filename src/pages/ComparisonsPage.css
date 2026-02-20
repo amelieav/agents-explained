@@ -86,6 +86,27 @@
   font-family: var(--theme-font-display);
 }
 
+.comparisons-page__table--similar td p {
+  margin: 0;
+}
+
+.comparisons-page__table--similar td {
+  min-width: 240px;
+}
+
+.comparisons-page__table--similar td p + p {
+  margin-top: var(--space-xs);
+}
+
+.comparisons-page__pair-title {
+  font-family: var(--theme-font-display);
+  font-size: 1.02rem;
+}
+
+.comparisons-page__example {
+  color: var(--text-muted);
+}
+
 .comparisons-page__card-grid {
   display: grid;
   gap: var(--space-sm);

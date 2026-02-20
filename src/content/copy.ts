@@ -1,4 +1,12 @@
-import { AgentLoopReference, FAQItem, FrameworkFitItem, GlossaryItem, LoopStep, PatternItem } from "../types/content";
+import {
+  AgentLoopReference,
+  FAQItem,
+  FrameworkFitItem,
+  GlossaryItem,
+  LoopStep,
+  PatternItem,
+  SimilarTermsComparison
+} from "../types/content";
 
 export const siteCopy = {
   title: "How AI Agents Work",
@@ -225,6 +233,126 @@ export const mcpCopy = {
     }
   ]
 };
+
+export const similarTermsComparisons: SimilarTermsComparison[] = [
+  {
+    leftTerm: "Agent",
+    rightTerm: "Workflow",
+    leftIs: "A decision-making actor that can choose actions dynamically.",
+    rightIs: "A predefined execution structure with known stages and gates.",
+    keyDifference: "Agency vs structure. Agents decide; workflows constrain.",
+    chooseRule: "Use an agent when tasks are ambiguous. Use a workflow when reliability and repeatability matter most.",
+    example: "Incident triage assistant (agent) inside a fixed escalation workflow."
+  },
+  {
+    leftTerm: "Tool",
+    rightTerm: "MCP",
+    leftIs: "The executable action (API call, file edit, command).",
+    rightIs: "The protocol/interface used to expose and invoke those actions.",
+    keyDifference: "Capability vs transport contract.",
+    chooseRule: "If you're defining behavior, think tool. If you're defining integration plumbing, think MCP.",
+    example: "A `create_ticket` function is a tool; the MCP server is how the model discovers and calls it."
+  },
+  {
+    leftTerm: "Tool",
+    rightTerm: "Docs/Knowledge",
+    leftIs: "Changes state in the outside world.",
+    rightIs: "Provides read-only context and reference material.",
+    keyDifference: "Actuation vs context.",
+    chooseRule: "If the model needs to do something, use a tool. If it needs to know something, use docs/knowledge.",
+    example: "Read runbook text from docs, then call deployment rollback tool."
+  },
+  {
+    leftTerm: "Planner",
+    rightTerm: "Orchestrator",
+    leftIs: "Chooses next tasks and sequencing strategy.",
+    rightIs: "Executes routing, state transitions, and stage control.",
+    keyDifference: "Planning intent vs runtime control plane.",
+    chooseRule: "Planner decides what should happen next. Orchestrator ensures it happens safely and in-order.",
+    example: "Planner selects analysis -> fix -> verify; orchestrator runs those steps with retries/checkpoints."
+  },
+  {
+    leftTerm: "Memory",
+    rightTerm: "RAG retrieval context",
+    leftIs: "State carried across steps/sessions for continuity.",
+    rightIs: "Documents retrieved for this specific response.",
+    keyDifference: "Persistent working state vs query-time evidence.",
+    chooseRule: "Use memory for evolving task state. Use retrieval for grounded external facts.",
+    example: "Persist current objective in memory, pull latest policy docs via retrieval."
+  },
+  {
+    leftTerm: "Prompt template",
+    rightTerm: "System instruction",
+    leftIs: "Reusable text pattern to shape task-specific input.",
+    rightIs: "Highest-priority behavior policy for the assistant.",
+    keyDifference: "Formatting scaffold vs governing rule layer.",
+    chooseRule: "Put safety/behavior constraints in system instructions; put task scaffolding in prompt templates.",
+    example: "System enforces citation policy; template structures 'summarize -> risks -> next actions'."
+  },
+  {
+    leftTerm: "LangChain",
+    rightTerm: "LangGraph",
+    leftIs: "A toolkit for composing prompts, tools, and retrieval flows quickly.",
+    rightIs: "A stateful graph runtime for durable multi-step and agent workflows.",
+    keyDifference: "Rapid composition layer vs explicit state-machine orchestration.",
+    chooseRule: "Use LangChain for quick assembly. Use LangGraph when you need checkpointing and strict control flow.",
+    example: "Prototype assistant in LangChain; production long-running runbook flow in LangGraph."
+  },
+  {
+    leftTerm: "Guardrail",
+    rightTerm: "Evaluator",
+    leftIs: "A hard policy or constraint that blocks disallowed behavior.",
+    rightIs: "A scoring/review step that judges output quality and may trigger retry.",
+    keyDifference: "Binary policy enforcement vs graded quality assessment.",
+    chooseRule: "Use guardrails to enforce non-negotiables. Use evaluators to improve acceptable-but-weak outputs.",
+    example: "Guardrail blocks PII leakage; evaluator asks for better citation quality."
+  },
+  {
+    leftTerm: "Handoff",
+    rightTerm: "Delegation",
+    leftIs: "Transfer of control/context to another stage or agent.",
+    rightIs: "Assignment of a subtask while parent context remains in charge.",
+    keyDifference: "Control transfer vs scoped task assignment.",
+    chooseRule: "Use handoff when ownership changes. Use delegation when ownership stays with the original orchestrator.",
+    example: "Planner delegates data fetch, then hands off final review to a compliance agent."
+  },
+  {
+    leftTerm: "Checkpoint",
+    rightTerm: "Trace",
+    leftIs: "Persisted state snapshot used for resume/recovery.",
+    rightIs: "Execution log used for auditability and debugging.",
+    keyDifference: "Recovery primitive vs observability artifact.",
+    chooseRule: "Use checkpoints to continue runs after failure; use traces to understand what happened.",
+    example: "Resume from checkpoint after crash, inspect trace to find root cause."
+  },
+  {
+    leftTerm: "Token budget",
+    rightTerm: "Context window",
+    leftIs: "A runtime spending limit you set for a step or session.",
+    rightIs: "The model's maximum tokens it can process at once.",
+    keyDifference: "Policy limit you control vs model limit you must respect.",
+    chooseRule: "Treat context window as a hard cap and token budget as an operational budget cap under it.",
+    example: "Model supports 200k context; run policy caps each task at 25k tokens."
+  },
+  {
+    leftTerm: "Retry",
+    rightTerm: "Reflection",
+    leftIs: "Re-running a failed or low-quality step with adjusted parameters.",
+    rightIs: "An explicit self-critique pass before finalizing output.",
+    keyDifference: "Execution repetition vs quality reasoning pass.",
+    chooseRule: "Use retries for transient/tool failures. Use reflection for reasoning quality improvements.",
+    example: "Retry API timeout; reflection catches missing edge-case explanation."
+  },
+  {
+    leftTerm: "Single-agent",
+    rightTerm: "Multi-agent",
+    leftIs: "One agent handles planning and execution end-to-end.",
+    rightIs: "Multiple specialized agents coordinate under shared goals.",
+    keyDifference: "Lower coordination overhead vs higher specialization and parallelism.",
+    chooseRule: "Start single-agent for simplicity; move to multi-agent when specialization or throughput bottlenecks appear.",
+    example: "Single-agent for basic support bot; multi-agent for triage + research + QA pipeline."
+  }
+];
 
 export const organizationPatterns: PatternItem[] = [
   {
@@ -884,7 +1012,14 @@ export const comparisonPageCopy = {
     "Use this page for side-by-side choices. Keep the landing page focused on loop mechanics and multi-agent ecosystems.",
   backLabel: "Back to landing",
   glossaryLabel: "Open glossary",
+  similarTermsTitle: "Similar terms that people mix up",
+  similarTermsSummary: "Fast distinctions to make architecture decisions without terminology drift.",
   mcpDecisionTitle: "How to use this comparison",
+  similarTermsColumns: {
+    terms: "Terms",
+    difference: "Core difference",
+    chooseRule: "Quick decision rule"
+  },
   mcpDecisionPoints: [
     "If it executes actions, that is a tool.",
     "If it provides reference context, that is docs/knowledge.",

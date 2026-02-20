@@ -49,6 +49,16 @@ export interface PatternItem {
   risk: string;
 }
 
+export interface SimilarTermsComparison {
+  leftTerm: string;
+  rightTerm: string;
+  leftIs: string;
+  rightIs: string;
+  keyDifference: string;
+  chooseRule: string;
+  example: string;
+}
+
 export interface AgentLoopReference {
   id: string;
   tabLabel: string;

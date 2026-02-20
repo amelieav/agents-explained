@@ -468,6 +468,44 @@ export const glossaryItems: GlossaryItem[] = [
     related: ["capability scoping", "autonomy"]
   },
   {
+    term: "Langflow",
+    definition:
+      "A visual low-code orchestration studio for building and deploying LLM workflows and multi-agent graphs.",
+    related: ["application orchestration", "LangChain", "workflow builder"],
+    sourceLabel: "langflow-ai/langflow",
+    sourceUrl: "https://github.com/langflow-ai/langflow"
+  },
+  {
+    term: "Dify",
+    definition:
+      "A production-focused LLM application platform that combines workflow orchestration, RAG, model management, and observability.",
+    related: ["LLM app platform", "RAG", "agent builder"],
+    sourceLabel: "langgenius/dify",
+    sourceUrl: "https://github.com/langgenius/dify"
+  },
+  {
+    term: "Browser-Use",
+    definition: "A browser-native execution framework that lets LLM agents automate real websites via controlled sessions.",
+    related: ["execution layer", "browser automation", "Playwright"],
+    sourceLabel: "browser-use/browser-use",
+    sourceUrl: "https://github.com/browser-use/browser-use"
+  },
+  {
+    term: "RAGFlow",
+    definition: "An enterprise-grade retrieval and context engine for document-heavy RAG systems with agentic workflow support.",
+    related: ["context layer", "retrieval", "grounded citations"],
+    sourceLabel: "infiniflow/ragflow",
+    sourceUrl: "https://github.com/infiniflow/ragflow"
+  },
+  {
+    term: "Prompt Engineering Guide",
+    definition:
+      "A knowledge repository covering prompt design, reasoning patterns, and agent/RAG prompting techniques rather than runtime infrastructure.",
+    related: ["cognitive design", "ReAct", "prompt strategy"],
+    sourceLabel: "dair-ai/Prompt-Engineering-Guide",
+    sourceUrl: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+  },
+  {
     term: "Context window",
     definition: "The bounded token budget the model can consider in one pass.",
     related: ["prompt", "memory"]

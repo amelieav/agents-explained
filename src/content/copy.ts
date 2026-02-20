@@ -175,6 +175,41 @@ export const glossaryItems: GlossaryItem[] = [
     related: ["state machine", "policy"]
   },
   {
+    term: "Evaluator",
+    definition: "The check step that scores outputs against requirements before finalizing.",
+    related: ["validation", "guardrails"]
+  },
+  {
+    term: "Guardrail",
+    definition: "A hard rule that constrains behavior, tool usage, or output format.",
+    related: ["policy", "safety check"]
+  },
+  {
+    term: "Retry policy",
+    definition: "A bounded strategy that decides when and how the agent should try again.",
+    related: ["backoff", "error handling"]
+  },
+  {
+    term: "Handoff",
+    definition: "A transfer of control and context from one agent or stage to another.",
+    related: ["pipeline", "multi-agent"]
+  },
+  {
+    term: "Schema validation",
+    definition: "Runtime verification that structured output matches an expected shape.",
+    related: ["JSON schema", "contracts"]
+  },
+  {
+    term: "Idempotent action",
+    definition: "An operation that can be repeated without changing the final system state.",
+    related: ["safety", "side effects"]
+  },
+  {
+    term: "Trace",
+    definition: "A step-by-step log of prompts, tool calls, outputs, and decisions.",
+    related: ["observability", "debugging"]
+  },
+  {
     term: "Context window",
     definition: "The bounded token budget the model can consider in one pass.",
     related: ["prompt", "memory"]
@@ -235,7 +270,7 @@ export const homeSectionCopy = {
   },
   glossary: {
     title: "Glossary",
-    summary: "Key terms in plain language."
+    summary: "Expanded quick-reference terms in plain language."
   }
 };
 

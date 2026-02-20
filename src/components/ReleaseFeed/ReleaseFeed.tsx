@@ -171,6 +171,7 @@ export function ReleaseFeed({
   loadingLabel,
   errorLabel,
   noNotesLabel,
+  maxItems,
   variant = "default",
   className
 }: ReleaseFeedProps): JSX.Element {
@@ -198,7 +199,8 @@ export function ReleaseFeed({
           return;
         }
 
-        setItems(mapped);
+        const limited = maxItems && maxItems > 0 ? mapped.slice(0, maxItems) : mapped;
+        setItems(limited);
         setState("loaded");
       } catch (_error) {
         if (mounted) {
@@ -212,7 +214,7 @@ export function ReleaseFeed({
     return () => {
       mounted = false;
     };
-  }, [endpoint, noNotesLabel]);
+  }, [endpoint, noNotesLabel, maxItems]);
 
   if (state === "loading" || state === "idle") {
     return <p className={classNames("release-feed__status", className)}>{loadingLabel}</p>;

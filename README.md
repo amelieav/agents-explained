@@ -1,12 +1,11 @@
 # Agents Explained
 
-A pastel-themed educational site that explains how AI agents work, with a component-driven architecture and centralized theme/content registries.
+A sweet educational site that explains how AI agents work, with a component-driven architecture and centralized theme/content registries.
 
 ## Highlights
 
 - React + Vite + TypeScript frontend.
 - Long-form guide with sticky sidebar navigation and mobile drawer menu.
-- In-app component preview route at `/lab` for isolated UI tweaks.
 - Single source of truth for theme tokens and reusable copy.
 - GitLab Releases feed rendered in-page.
 

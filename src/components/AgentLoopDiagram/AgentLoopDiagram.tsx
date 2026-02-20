@@ -9,6 +9,7 @@ interface PositionedLoopNode {
   detail: string;
   centerX: number;
   centerY: number;
+  labelLines: string[];
   detailLines: string[];
 }
 
@@ -43,8 +44,8 @@ function edgePoints(from: PositionedLoopNode, to: PositionedLoopNode): { x1: num
   const length = Math.hypot(dx, dy) || 1;
   const nx = dx / length;
   const ny = dy / length;
-  const startOffset = 56;
-  const endOffset = 56;
+  const startOffset = 66;
+  const endOffset = 66;
   const x1 = from.centerX + nx * startOffset;
   const y1 = from.centerY + ny * startOffset;
   const x2 = to.centerX - nx * endOffset;
@@ -56,12 +57,12 @@ function edgePoints(from: PositionedLoopNode, to: PositionedLoopNode): { x1: num
 }
 
 export function AgentLoopDiagram({ steps, variant = "default", className }: AgentLoopDiagramProps): JSX.Element {
-  const hubX = 360;
-  const hubY = 250;
-  const radius = 190;
-  const nodeWidth = 170;
-  const nodeHeight = 78;
-  const edgeLabels = ["Intent parse", "Task planning", "Tool execution", "Quality checks", "State updates"];
+  const hubX = 420;
+  const hubY = 300;
+  const radius = steps.length >= 7 ? 240 : steps.length === 6 ? 224 : 205;
+  const nodeWidth = 190;
+  const nodeHeight = 94;
+  const edgeLabels = ["Intake", "Route", "Execute", "Check", "Refine", "Merge", "Publish"];
 
   const nodes: PositionedLoopNode[] = steps.map((step, index) => {
     const angle = (-90 + (index * 360) / steps.length) * (Math.PI / 180);
@@ -69,18 +70,19 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
       ...step,
       centerX: hubX + radius * Math.cos(angle),
       centerY: hubY + radius * Math.sin(angle),
+      labelLines: wrapLines(step.label, 18).slice(0, 2),
       detailLines: wrapLines(step.detail, 24).slice(0, 2)
     };
   });
 
-  const planNode = nodes.find((node) => node.id === "plan");
-  const evaluateNode = nodes.find((node) => node.id === "evaluate");
-  const adaptNode = nodes.find((node) => node.id === "adapt");
-  const understandNode = nodes.find((node) => node.id === "understand");
+  const retryFrom = nodes[Math.min(nodes.length - 1, Math.max(0, Math.floor((nodes.length * 2) / 3)))];
+  const retryTo = nodes[Math.max(0, Math.floor(nodes.length / 3))];
+  const closeLoopFrom = nodes[nodes.length - 1];
+  const closeLoopTo = nodes[0];
 
   return (
     <figure className={classNames("agent-loop", agentLoopVariantClass[variant], className)}>
-      <svg viewBox="0 0 720 500" role="img" aria-label="Detailed AI agent loop with shared state, tool execution, and feedback">
+      <svg viewBox="0 0 840 620" role="img" aria-label="Detailed AI agent loop with orchestration, shared state, and feedback">
         <defs>
           <marker id="agent-loop-arrowhead" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
             <path d="M 0 0 L 9 4.5 L 0 9 z" className="agent-loop__arrowhead" />
@@ -111,27 +113,27 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
           );
         })}
 
-        {evaluateNode && planNode ? (
+        {steps.length > 3 && retryFrom && retryTo ? (
           <>
             <path
-              d={`M ${evaluateNode.centerX - 20} ${evaluateNode.centerY - 28} C ${hubX + 10} ${hubY - 150}, ${hubX - 20} ${hubY - 160}, ${planNode.centerX + 18} ${planNode.centerY + 26}`}
+              d={`M ${retryFrom.centerX - 24} ${retryFrom.centerY - 28} C ${hubX + 26} ${hubY - 180}, ${hubX - 32} ${hubY - 186}, ${retryTo.centerX + 18} ${retryTo.centerY + 34}`}
               className="agent-loop__feedback"
               markerEnd="url(#agent-loop-arrowhead)"
             />
-            <text className="agent-loop__edge-label" x={hubX - 8} y={hubY - 156}>
+            <text className="agent-loop__edge-label" x={hubX - 12} y={hubY - 188}>
               Feedback retry
             </text>
           </>
         ) : null}
 
-        {adaptNode && understandNode ? (
+        {steps.length > 2 && closeLoopFrom && closeLoopTo ? (
           <>
             <path
-              d={`M ${adaptNode.centerX + 32} ${adaptNode.centerY - 16} C ${hubX - 38} ${hubY - 10}, ${hubX - 120} ${hubY - 42}, ${understandNode.centerX - 24} ${understandNode.centerY + 28}`}
+              d={`M ${closeLoopFrom.centerX + 36} ${closeLoopFrom.centerY - 10} C ${hubX - 10} ${hubY + 40}, ${hubX - 140} ${hubY - 18}, ${closeLoopTo.centerX - 24} ${closeLoopTo.centerY + 30}`}
               className="agent-loop__feedback"
               markerEnd="url(#agent-loop-arrowhead)"
             />
-            <text className="agent-loop__edge-label" x={hubX - 170} y={hubY - 38}>
+            <text className="agent-loop__edge-label" x={hubX - 190} y={hubY - 10}>
               Updated context
             </text>
           </>
@@ -155,10 +157,14 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
               rx={18}
               className="agent-loop__node"
             />
-            <text x={node.centerX} y={node.centerY - 10} className="agent-loop__label">
-              {node.label}
+            <text x={node.centerX} y={node.centerY - 22} className="agent-loop__label">
+              {node.labelLines.map((line, lineIndex) => (
+                <tspan key={`${node.id}-label-${lineIndex}`} x={node.centerX} dy={lineIndex === 0 ? 0 : 16}>
+                  {line}
+                </tspan>
+              ))}
             </text>
-            <text x={node.centerX} y={node.centerY + 10} className="agent-loop__detail">
+            <text x={node.centerX} y={node.centerY + 14} className="agent-loop__detail">
               {node.detailLines.map((line, lineIndex) => (
                 <tspan key={`${node.id}-line-${lineIndex}`} x={node.centerX} dy={lineIndex === 0 ? 0 : 14}>
                   {line}
@@ -169,7 +175,7 @@ export function AgentLoopDiagram({ steps, variant = "default", className }: Agen
         ))}
       </svg>
       <figcaption className="agent-loop__caption">
-        Execution moves through understanding, planning, acting, evaluation, and adaptation while shared state synchronizes each step.
+        Each loop pattern coordinates orchestration, execution, shared state updates, and iterative feedback until completion.
       </figcaption>
     </figure>
   );

@@ -7,15 +7,14 @@ import { ReleaseFeed } from "../components/ReleaseFeed/ReleaseFeed";
 import { SectionShell } from "../components/SectionShell/SectionShell";
 import { SidebarNav } from "../components/SidebarNav/SidebarNav";
 import {
+  agentLoopReferences,
   bigProjectPractices,
   faqItems,
   frameworkFit,
   frameworkTableCopy,
   homeSectionCopy,
   introCopy,
-  loopSteps,
   mcpCopy,
-  mentalModelCards,
   organizationPatterns,
   releaseCopy,
   sharedLabels,
@@ -27,8 +26,13 @@ import "./HomePage.css";
 
 export function HomePage(): JSX.Element {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeLoopReferenceId, setActiveLoopReferenceId] = useState(agentLoopReferences[0].id);
   const ids = useMemo(() => navItems.map((item) => item.id), []);
   const activeId = useActiveSection(ids);
+  const activeLoopReference = useMemo(
+    () => agentLoopReferences.find((item) => item.id === activeLoopReferenceId) ?? agentLoopReferences[0],
+    [activeLoopReferenceId]
+  );
 
   return (
     <main className="home-page">
@@ -66,27 +70,37 @@ export function HomePage(): JSX.Element {
             summary={homeSectionCopy.mentalModel.summary}
             variant="glass"
           >
-            <div className="home-page__combined-grid">
-              <div className="home-page__card-grid home-page__card-grid--mental">
-                {mentalModelCards.map((card) => (
-                  <article className="home-page__card" key={card.title}>
-                    <h3>{card.title}</h3>
-                    <p>{card.body}</p>
-                  </article>
-                ))}
-              </div>
+            <div className="home-page__loop-tabs" role="tablist" aria-label="Agent loop sources">
+              {agentLoopReferences.map((reference) => (
+                <button
+                  key={reference.id}
+                  type="button"
+                  role="tab"
+                  className={`home-page__loop-tab${reference.id === activeLoopReference.id ? " home-page__loop-tab--active" : ""}`}
+                  aria-selected={reference.id === activeLoopReference.id}
+                  onClick={() => setActiveLoopReferenceId(reference.id)}
+                >
+                  {reference.tabLabel}
+                </button>
+              ))}
+            </div>
 
-              <div className="home-page__loop-stack">
-                <h3 className="home-page__subheading">{homeSectionCopy.loop.title}</h3>
-                <AgentLoopDiagram steps={loopSteps} />
-                <ol className="home-page__ordered-list">
-                  {loopSteps.map((step) => (
-                    <li key={step.id}>
-                      <strong>{step.label}:</strong> {step.detail}
-                    </li>
-                  ))}
-                </ol>
+            <div className="home-page__loop-stack">
+              <div className="home-page__loop-meta">
+                <h3 className="home-page__subheading">{activeLoopReference.title}</h3>
+                <a href={activeLoopReference.sourceUrl} target="_blank" rel="noreferrer">
+                  {activeLoopReference.sourceName}
+                </a>
               </div>
+              <p className="home-page__loop-why">{activeLoopReference.why}</p>
+              <AgentLoopDiagram steps={activeLoopReference.steps} />
+              <ol className="home-page__ordered-list">
+                {activeLoopReference.steps.map((step) => (
+                  <li key={step.id}>
+                    <strong>{step.label}:</strong> {step.detail}
+                  </li>
+                ))}
+              </ol>
             </div>
           </SectionShell>
 

@@ -9,6 +9,11 @@
   gap: var(--space-lg);
 }
 
+.glossary-page__toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .glossary-page__header {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);

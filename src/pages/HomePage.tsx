@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AgentLoopDiagram } from "../components/AgentLoopDiagram/AgentLoopDiagram";
+import { LanguageToggle } from "../components/LanguageToggle/LanguageToggle";
 import { MobileNavDrawer } from "../components/MobileNavDrawer/MobileNavDrawer";
 import { ReleaseFeed } from "../components/ReleaseFeed/ReleaseFeed";
 import { SectionShell } from "../components/SectionShell/SectionShell";
@@ -13,10 +14,12 @@ import {
   siteCopy
 } from "../content/copy";
 import { navItems } from "../content/sections";
+import { useLanguage } from "../language/LanguageProvider";
 import { useActiveSection } from "../utils/useActiveSection";
 import "./HomePage.css";
 
 export function HomePage(): JSX.Element {
+  const { translate } = useLanguage();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeLoopReferenceId, setActiveLoopReferenceId] = useState(agentLoopReferences[0].id);
   const ids = useMemo(() => navItems.map((item) => item.id), []);
@@ -34,11 +37,15 @@ export function HomePage(): JSX.Element {
         </aside>
 
         <div className="home-page__content">
+          <div className="home-page__toolbar">
+            <LanguageToggle />
+          </div>
+
           <header className="home-page__hero" id="top">
             <div className="home-page__hero-copy">
               <p>{siteCopy.eyebrow}</p>
               <h1>{siteCopy.title}</h1>
-              <p>{siteCopy.subtitle}</p>
+              <p>{translate(siteCopy.subtitle)}</p>
               <button className="home-page__menu-button" type="button" onClick={() => setDrawerOpen(true)}>
                 {siteCopy.mobileMenuLabel}
               </button>
@@ -53,10 +60,10 @@ export function HomePage(): JSX.Element {
             </div>
           </header>
 
-          <SectionShell id="intro" title={introCopy.heading} summary={introCopy.summary} variant="highlight">
+          <SectionShell id="intro" title={introCopy.heading} summary={translate(introCopy.summary)} variant="highlight">
             <ul className="home-page__bullet-list">
               {introCopy.bullets.map((bullet) => (
-                <li key={bullet}>{bullet}</li>
+                <li key={bullet}>{translate(bullet)}</li>
               ))}
             </ul>
           </SectionShell>
@@ -64,7 +71,7 @@ export function HomePage(): JSX.Element {
           <SectionShell
             id="mental-model"
             title={homeSectionCopy.mentalModel.title}
-            summary={homeSectionCopy.mentalModel.summary}
+            summary={translate(homeSectionCopy.mentalModel.summary)}
             variant="glass"
           >
             <div className="home-page__loop-tabs" role="tablist" aria-label="Agent ecosystem sources">
@@ -89,19 +96,19 @@ export function HomePage(): JSX.Element {
                   {activeLoopReference.sourceName}
                 </a>
               </div>
-              <p className="home-page__loop-why">{activeLoopReference.why}</p>
+              <p className="home-page__loop-why">{translate(activeLoopReference.why)}</p>
               <AgentLoopDiagram steps={activeLoopReference.steps} layout={activeLoopReference.diagramKind} />
               <ol className="home-page__ordered-list">
                 {activeLoopReference.steps.map((step) => (
                   <li key={step.id}>
-                    <strong>{step.label}:</strong> {step.detail}
+                    <strong>{step.label}:</strong> {translate(step.detail)}
                   </li>
                 ))}
               </ol>
             </div>
           </SectionShell>
 
-          <SectionShell id="releases" title={releaseCopy.heading} summary={releaseCopy.subheading}>
+          <SectionShell id="releases" title={releaseCopy.heading} summary={translate(releaseCopy.subheading)}>
             <ReleaseFeed
               endpoint={siteCopy.releaseEndpoint}
               loadingLabel={releaseCopy.loading}

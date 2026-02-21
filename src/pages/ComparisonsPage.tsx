@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { LanguageToggle } from "../components/LanguageToggle/LanguageToggle";
 import { SectionShell } from "../components/SectionShell/SectionShell";
 import {
   comparisonPageCopy,
@@ -8,23 +9,34 @@ import {
   mcpCopy,
   similarTermsComparisons
 } from "../content/copy";
+import { useLanguage } from "../language/LanguageProvider";
 import "./ComparisonsPage.css";
 
 export function ComparisonsPage(): JSX.Element {
+  const { translate } = useLanguage();
+
   return (
     <main className="comparisons-page">
       <div className="comparisons-page__container">
+        <div className="comparisons-page__toolbar">
+          <LanguageToggle />
+        </div>
+
         <header className="comparisons-page__header">
           <p>{comparisonPageCopy.eyebrow}</p>
           <h1>{comparisonPageCopy.title}</h1>
-          <p>{comparisonPageCopy.subtitle}</p>
+          <p>{translate(comparisonPageCopy.subtitle)}</p>
           <div className="comparisons-page__links">
             <Link to="/">{comparisonPageCopy.backLabel}</Link>
             <Link to="/glossary">{comparisonPageCopy.glossaryLabel}</Link>
           </div>
         </header>
 
-        <SectionShell id="framework-fit" title={homeSectionCopy.framework.title} summary={homeSectionCopy.framework.summary}>
+        <SectionShell
+          id="framework-fit"
+          title={homeSectionCopy.framework.title}
+          summary={translate(homeSectionCopy.framework.summary)}
+        >
           <div className="comparisons-page__table-wrap">
             <table className="comparisons-page__table">
               <thead>
@@ -39,9 +51,9 @@ export function ComparisonsPage(): JSX.Element {
                 {frameworkFit.map((item) => (
                   <tr key={item.name}>
                     <td>{item.name}</td>
-                    <td>{item.bestFor}</td>
-                    <td>{item.mentalModel}</td>
-                    <td>{item.caveat}</td>
+                    <td>{translate(item.bestFor)}</td>
+                    <td>{translate(item.mentalModel)}</td>
+                    <td>{translate(item.caveat)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -49,12 +61,12 @@ export function ComparisonsPage(): JSX.Element {
           </div>
         </SectionShell>
 
-        <SectionShell id="mcp" title={mcpCopy.heading} summary={mcpCopy.summary} variant="glass">
+        <SectionShell id="mcp" title={mcpCopy.heading} summary={translate(mcpCopy.summary)} variant="glass">
           <div className="comparisons-page__card-grid">
             {mcpCopy.cards.map((card) => (
               <article className="comparisons-page__card" key={card.title}>
                 <h3>{card.title}</h3>
-                <p>{card.body}</p>
+                <p>{translate(card.body)}</p>
               </article>
             ))}
           </div>
@@ -62,7 +74,7 @@ export function ComparisonsPage(): JSX.Element {
             <h3>{comparisonPageCopy.mcpDecisionTitle}</h3>
             <ul>
               {comparisonPageCopy.mcpDecisionPoints.map((point) => (
-                <li key={point}>{point}</li>
+                <li key={point}>{translate(point)}</li>
               ))}
             </ul>
           </article>
@@ -71,7 +83,7 @@ export function ComparisonsPage(): JSX.Element {
         <SectionShell
           id="similar-terms"
           title={comparisonPageCopy.similarTermsTitle}
-          summary={comparisonPageCopy.similarTermsSummary}
+          summary={translate(comparisonPageCopy.similarTermsSummary)}
         >
           <div className="comparisons-page__table-wrap">
             <table className="comparisons-page__table comparisons-page__table--similar">
@@ -90,19 +102,19 @@ export function ComparisonsPage(): JSX.Element {
                         {item.leftTerm} vs {item.rightTerm}
                       </p>
                       <p>
-                        <strong>{item.leftTerm}:</strong> {item.leftIs}
+                        <strong>{item.leftTerm}:</strong> {translate(item.leftIs)}
                       </p>
                       <p>
-                        <strong>{item.rightTerm}:</strong> {item.rightIs}
+                        <strong>{item.rightTerm}:</strong> {translate(item.rightIs)}
                       </p>
                     </td>
                     <td>
-                      <p>{item.keyDifference}</p>
+                      <p>{translate(item.keyDifference)}</p>
                       <p className="comparisons-page__example">
-                        <strong>Example:</strong> {item.example}
+                        <strong>Example:</strong> {translate(item.example)}
                       </p>
                     </td>
-                    <td>{item.chooseRule}</td>
+                    <td>{translate(item.chooseRule)}</td>
                   </tr>
                 ))}
               </tbody>

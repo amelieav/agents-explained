@@ -9,6 +9,11 @@
   gap: var(--space-lg);
 }
 
+.comparisons-page__toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .comparisons-page__header {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);

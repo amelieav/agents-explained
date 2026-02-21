@@ -1,7 +1,9 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { GlossaryTermCard } from "../components/GlossaryTermCard/GlossaryTermCard";
+import { LanguageToggle } from "../components/LanguageToggle/LanguageToggle";
 import { glossaryItems, glossaryPageCopy } from "../content/copy";
+import { useLanguage } from "../language/LanguageProvider";
 import "./GlossaryPage.css";
 
 type GlossaryFilter = "all" | "saved" | "related";
@@ -27,6 +29,7 @@ function readSavedTerms(): string[] {
 }
 
 export function GlossaryPage(): JSX.Element {
+  const { plainModeEnabled, translate } = useLanguage();
   const [draftQuery, setDraftQuery] = useState("");
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<GlossaryFilter>("all");
@@ -59,12 +62,17 @@ export function GlossaryPage(): JSX.Element {
       }
 
       const relatedText = item.related ? item.related.join(" ").toLowerCase() : "";
+      const translatedDefinition = plainModeEnabled ? translate(item.definition).toLowerCase() : "";
+      const translatedRelatedText =
+        plainModeEnabled && item.related ? item.related.map((value) => translate(value)).join(" ").toLowerCase() : "";
       const sourceLabelText = item.sourceLabel ? item.sourceLabel.toLowerCase() : "";
       const sourceUrlText = item.sourceUrl ? item.sourceUrl.toLowerCase() : "";
       return (
         item.term.toLowerCase().includes(normalizedQuery) ||
         item.definition.toLowerCase().includes(normalizedQuery) ||
+        translatedDefinition.includes(normalizedQuery) ||
         relatedText.includes(normalizedQuery) ||
+        translatedRelatedText.includes(normalizedQuery) ||
         sourceLabelText.includes(normalizedQuery) ||
         sourceUrlText.includes(normalizedQuery)
       );
@@ -85,7 +93,17 @@ export function GlossaryPage(): JSX.Element {
     }
 
     return alphabetized;
-  }, [filter, query, savedSet]);
+  }, [filter, plainModeEnabled, query, savedSet, translate]);
+
+  const visibleDisplayItems = useMemo(
+    () =>
+      visibleItems.map((item) => ({
+        ...item,
+        definition: translate(item.definition),
+        related: item.related ? item.related.map((tag) => translate(tag)) : undefined
+      })),
+    [translate, visibleItems]
+  );
 
   function onSearch(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -111,10 +129,14 @@ export function GlossaryPage(): JSX.Element {
   return (
     <main className="glossary-page">
       <div className="glossary-page__container">
+        <div className="glossary-page__toolbar">
+          <LanguageToggle />
+        </div>
+
         <header className="glossary-page__header">
           <p>{glossaryPageCopy.eyebrow}</p>
           <h1>{glossaryPageCopy.title}</h1>
-          <p>{glossaryPageCopy.subtitle}</p>
+          <p>{translate(glossaryPageCopy.subtitle)}</p>
           <Link to="/">{glossaryPageCopy.backLabel}</Link>
         </header>
 
@@ -152,7 +174,7 @@ export function GlossaryPage(): JSX.Element {
 
         {visibleItems.length > 0 ? (
           <section className="glossary-page__grid">
-            {visibleItems.map((item) => (
+            {visibleDisplayItems.map((item) => (
               <GlossaryTermCard
                 key={item.term}
                 item={item}
@@ -165,7 +187,7 @@ export function GlossaryPage(): JSX.Element {
             ))}
           </section>
         ) : (
-          <p className="glossary-page__empty">{glossaryPageCopy.empty}</p>
+          <p className="glossary-page__empty">{translate(glossaryPageCopy.empty)}</p>
         )}
       </div>
     </main>

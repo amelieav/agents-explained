@@ -4,10 +4,12 @@ import { AgentLoopDiagram } from "../components/AgentLoopDiagram/AgentLoopDiagra
 import { BubbleHeading } from "../components/BubbleHeading/BubbleHeading";
 import { FAQAccordion } from "../components/FAQAccordion/FAQAccordion";
 import { GlossaryTermCard } from "../components/GlossaryTermCard/GlossaryTermCard";
+import { LanguageToggle } from "../components/LanguageToggle/LanguageToggle";
 import { LayeredPanel } from "../components/LayeredPanel/LayeredPanel";
 import { ReleaseFeed } from "../components/ReleaseFeed/ReleaseFeed";
 import { SectionShell } from "../components/SectionShell/SectionShell";
 import { faqItems, glossaryItems, labCopy, loopSteps, releaseCopy } from "../content/copy";
+import { useLanguage } from "../language/LanguageProvider";
 import { Density, useTheme } from "../theme/ThemeProvider";
 import { ThemeName, themes } from "../theme/tokens";
 import "./ComponentLabPage.css";
@@ -25,6 +27,7 @@ function codeSnippet(label: string, snippet: string): JSX.Element {
 
 export function ComponentLabPage(): JSX.Element {
   const { themeName, setThemeName, density, setDensity } = useTheme();
+  const { translate } = useLanguage();
   const [sampleTitle, setSampleTitle] = useState(labCopy.sampleTitleDefault);
   const [sampleSummary, setSampleSummary] = useState(labCopy.sampleSummaryDefault);
 
@@ -39,10 +42,14 @@ export function ComponentLabPage(): JSX.Element {
   return (
     <main className="lab-page">
       <div className="lab-page__container">
+        <div className="lab-page__toolbar">
+          <LanguageToggle />
+        </div>
+
         <header className="lab-page__header">
           <p>{labCopy.eyebrow}</p>
           <h1>{labCopy.title}</h1>
-          <p>{labCopy.subtitle}</p>
+          <p>{translate(labCopy.subtitle)}</p>
           <Link to="/">{labCopy.backLabel}</Link>
         </header>
 
@@ -83,7 +90,7 @@ export function ComponentLabPage(): JSX.Element {
           </LayeredPanel>
 
           <SectionShell id="lab-section-shell" title={sampleTitle} summary={sampleSummary} variant="glass">
-            <p>{labCopy.sectionShellNote}</p>
+            <p>{translate(labCopy.sectionShellNote)}</p>
             {codeSnippet(labCopy.snippetLabel, '<SectionShell id="..." title="..." summary="...">...</SectionShell>')}
           </SectionShell>
 

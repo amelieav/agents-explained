@@ -21,6 +21,11 @@
   gap: var(--space-lg);
 }
 
+.home-page__toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .home-page__hero {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);

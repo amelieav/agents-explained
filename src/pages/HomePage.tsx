@@ -6,18 +6,31 @@ import { MobileNavDrawer } from "../components/MobileNavDrawer/MobileNavDrawer";
 import { ReleaseFeed } from "../components/ReleaseFeed/ReleaseFeed";
 import { SectionShell } from "../components/SectionShell/SectionShell";
 import { SidebarNav } from "../components/SidebarNav/SidebarNav";
-import {
-  agentLoopReferences,
-  homeSectionCopy,
-  introCopy,
-  releaseCopy,
-  siteCopy
-} from "../content/copy";
+import { homeSectionCopy, introCopy, releaseCopy, siteCopy } from "../content/copy";
+import autoBuildDiagram from "../images/autobuild.webp";
+import autoGenDiagram from "../images/autogen.webp";
+import googleAdkDiagram from "../images/google-adk.webp";
+import googleCloudDiagram from "../images/google.webp";
+import microsoftDiagram from "../images/microsoft.webp";
+import vertexDiagram from "../images/vertex-ai.webp";
 import { navItems } from "../content/sections";
 import { useLanguage } from "../language/LanguageProvider";
 import { LoopStep } from "../types/content";
 import { useActiveSection } from "../utils/useActiveSection";
 import "./HomePage.css";
+
+interface TechnicalEcosystem {
+  id: string;
+  title: string;
+  sourceLabel: string;
+  sourceUrl: string;
+  imageSrc: string;
+  imageAlt: string;
+  happening: string;
+  why: string;
+  tradeoffs: string[];
+  goodFor: string[];
+}
 
 const simpleLoopSteps: LoopStep[] = [
   {
@@ -67,16 +80,117 @@ const simpleHomeCopy = {
     "Instead of showing many advanced systems, this simple view shows the basic idea: you ask, it plans, it does, it checks, and it returns the result."
 };
 
+const technicalEcosystems: TechnicalEcosystem[] = [
+  {
+    id: "autobuild",
+    title: "Agent AutoBuild (Role-Specialized Collaboration Model)",
+    sourceLabel: "AG2 AutoBuild docs",
+    sourceUrl: "https://docs.ag2.ai/latest/docs/blog/2023/11/26/Agent-AutoBuild/",
+    imageSrc: autoBuildDiagram,
+    imageAlt: "Agent AutoBuild architecture diagram",
+    happening:
+      "This architecture runs in two phases. First, it builds the agent team from a single user goal by defining roles and instructions. Then those role agents move into a group chat execution loop where they exchange messages, refine work, and call code execution when needed until they converge on a final output.",
+    why:
+      "It is designed for specialization, delegation, and iterative reasoning. Instead of one giant prompt, it creates a structured team with isolated responsibilities and clearer task decomposition.",
+    tradeoffs: [
+      "Higher runtime cost because multiple agents may run for one task.",
+      "Debugging can be harder when issues happen across agent-to-agent conversations.",
+      "Convergence can be slower for open-ended work."
+    ],
+    goodFor: ["Research workflows", "Multi-step analysis", "Autonomous exploration"]
+  },
+  {
+    id: "autogen",
+    title: "AutoGen (Conversable Agent Framework)",
+    sourceLabel: "microsoft/autogen",
+    sourceUrl: "https://github.com/microsoft/autogen",
+    imageSrc: autoGenDiagram,
+    imageAlt: "AutoGen conversable agent framework diagram",
+    happening:
+      "The diagram centers on ConversableAgent as the base abstraction and shows three main roles: AssistantAgent, UserProxyAgent, and GroupChatManager. It highlights human input modes such as ALWAYS and NEVER, which define how autonomous each workflow is.",
+    why:
+      "AutoGen is designed to make autonomy boundaries programmable. It focuses on controlled execution and reproducible multi-agent workflows, not just free-form agent chat.",
+    tradeoffs: [
+      "Needs more orchestration setup than a single-agent approach.",
+      "Enterprise integrations are usually not automatic and may require extra plumbing."
+    ],
+    goodFor: ["Structured experiments", "Code-execution-heavy workflows", "Deterministic pipelines"]
+  },
+  {
+    id: "google-cloud-agent-engine",
+    title: "Google Cloud Agent Engine (Orchestrated Enterprise Agents)",
+    sourceLabel: "Google Cloud architecture docs",
+    sourceUrl: "https://docs.cloud.google.com/architecture/multiagent-ai-system",
+    imageSrc: googleCloudDiagram,
+    imageAlt: "Google Cloud multi-agent orchestrated architecture diagram",
+    happening:
+      "A root orchestrator agent receives the request and delegates work to specialized agents running in separate engines. Communication flows through A2A, MCP, and APIs while each agent can connect to tools and enterprise data systems such as BigQuery and REST services.",
+    why:
+      "It is built for enterprise constraints: isolation, security boundaries, service-based architecture, and production tool integrations.",
+    tradeoffs: [
+      "Operational complexity is higher due to multiple services and boundaries.",
+      "Strong contract governance is required between orchestration and execution services."
+    ],
+    goodFor: ["Enterprise workflows", "Data warehouse integration", "Production-grade deployment"]
+  },
+  {
+    id: "google-adk",
+    title: "Google ADK Agent Types",
+    sourceLabel: "Google ADK docs",
+    sourceUrl: "https://google.github.io/adk-docs/agents/multi-agents/",
+    imageSrc: googleAdkDiagram,
+    imageAlt: "Google ADK agent types hierarchy diagram",
+    happening:
+      "The hierarchy starts with BaseAgent, then splits into LLM-based agents, workflow agents (sequential, parallel, loop), and custom logic agents. It clearly separates reasoning behavior from control-flow behavior.",
+    why:
+      "The design acknowledges that LLM reasoning and workflow control are different concerns. By making control-flow explicit, it improves reliability and state management.",
+    tradeoffs: [
+      "Requires stronger architecture discipline before implementation.",
+      "More moving parts means more components to design and test."
+    ],
+    goodFor: ["Deterministic flows", "Safe loop/parallel composition", "Custom business-logic injection"]
+  },
+  {
+    id: "microsoft-agent-model",
+    title: "Microsoft Agent Model (Tool-Centric Agent)",
+    sourceLabel: "Microsoft Azure AI Agents docs",
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/agents/overview",
+    imageSrc: microsoftDiagram,
+    imageAlt: "Microsoft tool-centric agent model diagram",
+    happening:
+      "The flow is straightforward: input goes to one agent, the agent calls tools, and output comes back. Inside that one agent are instructions, a generative model, and tool connectors, supported by retrieval, actions, and memory.",
+    why:
+      "It emphasizes a strong single reasoning core with tool augmentation. This keeps architecture lean while still enabling real actions and grounded retrieval.",
+    tradeoffs: [
+      "Less native support for complex multi-agent coordination patterns.",
+      "Very large orchestration needs may require adding another orchestration layer."
+    ],
+    goodFor: ["Copilot-style assistants", "Interactive task assistants", "Retrieval + action experiences"]
+  },
+  {
+    id: "vertex-grounded-flow",
+    title: "Vertex AI Search Grounded Flow",
+    sourceLabel: "Vertex AI grounding docs",
+    sourceUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/grounding/grounding-with-vertex-ai-search",
+    imageSrc: vertexDiagram,
+    imageAlt: "Vertex AI Search grounded answer architecture diagram",
+    happening:
+      "A user query is routed through a session service to an LLM, which calls Vertex AI Search against enterprise data stores. Retrieved context comes back to the model, then the model returns a grounded answer with sources.",
+    why:
+      "This pattern is designed for trust and governance. It reduces unsupported answers by grounding responses in approved enterprise data.",
+    tradeoffs: [
+      "Answer quality depends heavily on the quality and freshness of indexed data.",
+      "Search-and-grounding steps can add latency to responses."
+    ],
+    goodFor: ["Internal knowledge assistants", "Secure enterprise help bots", "Customer support grounded in source data"]
+  }
+];
+
 export function HomePage(): JSX.Element {
   const { plainModeEnabled } = useLanguage();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [activeLoopReferenceId, setActiveLoopReferenceId] = useState(agentLoopReferences[0].id);
   const ids = useMemo(() => navItems.map((item) => item.id), []);
   const activeId = useActiveSection(ids);
-  const activeLoopReference = useMemo(
-    () => agentLoopReferences.find((item) => item.id === activeLoopReferenceId) ?? agentLoopReferences[0],
-    [activeLoopReferenceId]
-  );
 
   return (
     <main className="home-page">
@@ -148,40 +262,52 @@ export function HomePage(): JSX.Element {
                 </ol>
               </div>
             ) : (
-              <>
-                <div className="home-page__loop-tabs" role="tablist" aria-label="Agent ecosystem sources">
-                  {agentLoopReferences.map((reference) => (
-                    <button
-                      key={reference.id}
-                      type="button"
-                      role="tab"
-                      className={`home-page__loop-tab${reference.id === activeLoopReference.id ? " home-page__loop-tab--active" : ""}`}
-                      aria-selected={reference.id === activeLoopReference.id}
-                      onClick={() => setActiveLoopReferenceId(reference.id)}
-                    >
-                      {reference.tabLabel}
-                    </button>
-                  ))}
-                </div>
+              <div className="home-page__ecosystem-stack">
+                {technicalEcosystems.map((ecosystem) => (
+                  <article className="home-page__ecosystem-card" key={ecosystem.id}>
+                    <div className="home-page__loop-meta">
+                      <h3 className="home-page__subheading">{ecosystem.title}</h3>
+                      <a href={ecosystem.sourceUrl} target="_blank" rel="noreferrer">
+                        {ecosystem.sourceLabel}
+                      </a>
+                    </div>
 
-                <div className="home-page__loop-stack">
-                  <div className="home-page__loop-meta">
-                    <h3 className="home-page__subheading">{activeLoopReference.title}</h3>
-                    <a href={activeLoopReference.sourceUrl} target="_blank" rel="noreferrer">
-                      {activeLoopReference.sourceName}
-                    </a>
-                  </div>
-                  <p className="home-page__loop-why">{activeLoopReference.why}</p>
-                  <AgentLoopDiagram steps={activeLoopReference.steps} layout={activeLoopReference.diagramKind} />
-                  <ol className="home-page__ordered-list">
-                    {activeLoopReference.steps.map((step) => (
-                      <li key={step.id}>
-                        <strong>{step.label}:</strong> {step.detail}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </>
+                    <img className="home-page__ecosystem-image" src={ecosystem.imageSrc} alt={ecosystem.imageAlt} loading="lazy" />
+
+                    <div className="home-page__walkthrough">
+                      <h4>Deep walkthrough</h4>
+
+                      <div className="home-page__walkthrough-block">
+                        <h5>What&apos;s happening</h5>
+                        <p>{ecosystem.happening}</p>
+                      </div>
+
+                      <div className="home-page__walkthrough-block">
+                        <h5>Why it&apos;s designed that way</h5>
+                        <p>{ecosystem.why}</p>
+                      </div>
+
+                      <div className="home-page__walkthrough-block">
+                        <h5>What tradeoffs exist</h5>
+                        <ul>
+                          {ecosystem.tradeoffs.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="home-page__walkthrough-block">
+                        <h5>Who this pattern is good for</h5>
+                        <ul>
+                          {ecosystem.goodFor.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
             )}
           </SectionShell>
 

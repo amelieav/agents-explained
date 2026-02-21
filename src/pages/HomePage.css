@@ -298,8 +298,7 @@
   line-height: 1.65;
 }
 
-.home-page__simple-agent-usecases,
-.home-page__simple-agent-disease {
+.home-page__simple-agent-usecases {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--surface-layer) 82%, var(--accent-highlight) 18%);
@@ -308,8 +307,7 @@
   gap: var(--space-xs);
 }
 
-.home-page__simple-agent-usecases h4,
-.home-page__simple-agent-disease h4 {
+.home-page__simple-agent-usecases h4 {
   margin: 0;
   font-family: var(--theme-font-display);
   font-size: var(--theme-size-card-title);
@@ -321,12 +319,6 @@
   display: grid;
   gap: var(--space-xxs);
   color: var(--text-muted);
-}
-
-.home-page__simple-agent-disease p {
-  margin: 0;
-  color: var(--text-muted);
-  line-height: 1.65;
 }
 
 @media (max-width: 980px) {

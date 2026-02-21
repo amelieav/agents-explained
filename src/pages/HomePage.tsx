@@ -53,13 +53,28 @@ const simpleHomeCopy = {
     "An AI agent is a digital worker: you give it a goal, and it can figure out the steps, use tools, and return a complete result.",
   mentalModelSupport:
     "A multi-agent system means multiple digital workers collaborate. One can research, one can analyze, and one can check quality so the final answer is stronger.",
-  mentalModelUseCases: [
-    "Personal planning, writing support, and document summaries.",
-    "Business workflows like customer support, compliance review, and reporting.",
-    "Research-heavy tasks where several specialist agents can work in parallel."
-  ],
-  mentalModelDiseaseExample:
-    "Disease-solving example: one agent reads patient notes and lab results, another scans new medical studies, and a third checks treatment risks or drug interactions. Together they can prepare a faster, better-organized draft for doctors to review."
+  mentalModelHelpExamples: [
+    {
+      title: "Disease solving",
+      detail:
+        "One agent can read symptoms and lab results, another can search the latest medical research, and another can check drug interaction risks. This helps doctors review a clearer, faster first draft."
+    },
+    {
+      title: "Customer support",
+      detail:
+        "One agent can classify the problem, another can pull account details, and another can draft the response. This reduces wait time and improves answer quality."
+    },
+    {
+      title: "Fraud detection",
+      detail:
+        "One agent can scan transaction patterns, another can compare behavior history, and another can flag high-risk activity. This helps teams catch suspicious behavior earlier."
+    },
+    {
+      title: "Research and reporting",
+      detail:
+        "One agent gathers sources, one summarizes findings, and one verifies consistency. This helps teams produce reliable reports faster."
+    }
+  ]
 };
 
 const technicalEcosystems: TechnicalEcosystem[] = [
@@ -281,17 +296,14 @@ export function HomePage(): JSX.Element {
                 <p className="home-page__simple-agent-support">{simpleHomeCopy.mentalModelSupport}</p>
 
                 <div className="home-page__simple-agent-usecases">
-                  <h4>Common use cases</h4>
+                  <h4>How can this help?</h4>
                   <ul>
-                    {simpleHomeCopy.mentalModelUseCases.map((item) => (
-                      <li key={item}>{item}</li>
+                    {simpleHomeCopy.mentalModelHelpExamples.map((item) => (
+                      <li key={item.title}>
+                        <strong>{item.title}:</strong> {item.detail}
+                      </li>
                     ))}
                   </ul>
-                </div>
-
-                <div className="home-page__simple-agent-disease">
-                  <h4>How this can help with disease-solving</h4>
-                  <p>{simpleHomeCopy.mentalModelDiseaseExample}</p>
                 </div>
               </div>
             ) : (

@@ -49,6 +49,21 @@
   color: var(--text-muted);
 }
 
+.glossary-page__back-link {
+  justify-self: start;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-md);
+  background: color-mix(in srgb, var(--surface-layer) 62%, var(--accent-primary) 38%);
+}
+
+.glossary-page__back-link:hover,
+.glossary-page__back-link:focus-visible {
+  text-decoration: underline;
+}
+
 .glossary-page__controls {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);

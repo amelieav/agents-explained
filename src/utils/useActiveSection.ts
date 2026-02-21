@@ -5,30 +5,62 @@ export function useActiveSection(ids: SectionId[]): SectionId {
   const [activeId, setActiveId] = useState<SectionId>(ids[0]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (ids.length === 0) {
+      return;
+    }
 
-        if (visible[0]) {
-          setActiveId(visible[0].target.id as SectionId);
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((node): node is HTMLElement => Boolean(node));
+
+    if (sections.length === 0) {
+      return;
+    }
+
+    let frame = 0;
+
+    const updateActive = (): void => {
+      const marker = window.innerHeight * 0.32;
+      let nextActive = sections[0].id as SectionId;
+
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= marker) {
+          nextActive = section.id as SectionId;
         }
-      },
-      {
-        rootMargin: "-20% 0px -60% 0px",
-        threshold: [0.2, 0.5, 0.8]
-      }
-    );
 
-    ids.forEach((id) => {
-      const node = document.getElementById(id);
-      if (node) {
-        observer.observe(node);
+        if (rect.top <= marker && rect.bottom >= marker) {
+          nextActive = section.id as SectionId;
+          break;
+        }
       }
-    });
 
-    return () => observer.disconnect();
+      setActiveId(nextActive);
+    };
+
+    const onScroll = (): void => {
+      if (frame) {
+        return;
+      }
+
+      frame = window.requestAnimationFrame(() => {
+        updateActive();
+        frame = 0;
+      });
+    };
+
+    updateActive();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [ids]);
 
   return activeId;

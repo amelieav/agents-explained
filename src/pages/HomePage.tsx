@@ -13,13 +13,15 @@ import googleCloudDiagram from "../images/google.webp";
 import microsoftDiagram from "../images/microsoft.webp";
 import simpleAgentDiagram from "../images/simple-agent-diagram-of-single-agents-vs-multi-agents.webp";
 import vertexDiagram from "../images/vertex-ai.webp";
-import { navItems } from "../content/sections";
 import { useLanguage } from "../language/LanguageProvider";
+import { NavItem } from "../types/content";
 import { useActiveSection } from "../utils/useActiveSection";
 import "./HomePage.css";
 
 interface TechnicalEcosystem {
   id: string;
+  sectionId: string;
+  bookmarkLabel: string;
   title: string;
   sourceLabel: string;
   sourceUrl: string;
@@ -63,6 +65,8 @@ const simpleHomeCopy = {
 const technicalEcosystems: TechnicalEcosystem[] = [
   {
     id: "autobuild",
+    sectionId: "ecosystem-autobuild",
+    bookmarkLabel: "AutoBuild",
     title: "Agent AutoBuild (Role-Specialized Collaboration Model)",
     sourceLabel: "AG2 AutoBuild docs",
     sourceUrl: "https://docs.ag2.ai/latest/docs/blog/2023/11/26/Agent-AutoBuild/",
@@ -81,6 +85,8 @@ const technicalEcosystems: TechnicalEcosystem[] = [
   },
   {
     id: "autogen",
+    sectionId: "ecosystem-autogen",
+    bookmarkLabel: "AutoGen",
     title: "AutoGen (Conversable Agent Framework)",
     sourceLabel: "microsoft/autogen",
     sourceUrl: "https://github.com/microsoft/autogen",
@@ -98,6 +104,8 @@ const technicalEcosystems: TechnicalEcosystem[] = [
   },
   {
     id: "google-cloud-agent-engine",
+    sectionId: "ecosystem-google-cloud",
+    bookmarkLabel: "Google Cloud Agent Engine",
     title: "Google Cloud Agent Engine (Orchestrated Enterprise Agents)",
     sourceLabel: "Google Cloud architecture docs",
     sourceUrl: "https://docs.cloud.google.com/architecture/multiagent-ai-system",
@@ -115,6 +123,8 @@ const technicalEcosystems: TechnicalEcosystem[] = [
   },
   {
     id: "google-adk",
+    sectionId: "ecosystem-google-adk",
+    bookmarkLabel: "Google ADK Agent Types",
     title: "Google ADK Agent Types",
     sourceLabel: "Google ADK docs",
     sourceUrl: "https://google.github.io/adk-docs/agents/multi-agents/",
@@ -132,6 +142,8 @@ const technicalEcosystems: TechnicalEcosystem[] = [
   },
   {
     id: "microsoft-agent-model",
+    sectionId: "ecosystem-microsoft-model",
+    bookmarkLabel: "Microsoft Agent Model",
     title: "Microsoft Agent Model (Tool-Centric Agent)",
     sourceLabel: "Microsoft Azure AI Agents docs",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/agents/overview",
@@ -149,6 +161,8 @@ const technicalEcosystems: TechnicalEcosystem[] = [
   },
   {
     id: "vertex-grounded-flow",
+    sectionId: "ecosystem-vertex-grounded-flow",
+    bookmarkLabel: "Vertex Grounded Flow",
     title: "Vertex AI Search Grounded Flow",
     sourceLabel: "Vertex AI grounding docs",
     sourceUrl: "https://cloud.google.com/vertex-ai/generative-ai/docs/grounding/grounding-with-vertex-ai-search",
@@ -169,7 +183,33 @@ const technicalEcosystems: TechnicalEcosystem[] = [
 export function HomePage(): JSX.Element {
   const { plainModeEnabled } = useLanguage();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const ids = useMemo(() => navItems.map((item) => item.id), []);
+  const navItems = useMemo<NavItem[]>(() => {
+    const baseItems: NavItem[] = [
+      { id: "intro", label: "Start Here" },
+      { id: "mental-model", label: plainModeEnabled ? "AI Agent Basics" : "AI Ecosystems" },
+      { id: "releases", label: "Releases" }
+    ];
+
+    if (plainModeEnabled) {
+      return baseItems;
+    }
+
+    const ecosystemItems: NavItem[] = technicalEcosystems.map((ecosystem) => ({
+      id: ecosystem.sectionId,
+      label: ecosystem.bookmarkLabel,
+      level: 1
+    }));
+
+    return [
+      baseItems[0],
+      baseItems[1],
+      ...ecosystemItems,
+      { id: "single-vs-multi-agents-tech", label: "Single vs Multi-Agent (Tech)", level: 1 },
+      baseItems[2]
+    ];
+  }, [plainModeEnabled]);
+
+  const ids = useMemo(() => navItems.map((item) => item.id), [navItems]);
   const activeId = useActiveSection(ids);
 
   return (
@@ -257,7 +297,7 @@ export function HomePage(): JSX.Element {
             ) : (
               <div className="home-page__ecosystem-stack">
                 {technicalEcosystems.map((ecosystem) => (
-                  <article className="home-page__ecosystem-card" key={ecosystem.id}>
+                  <article className="home-page__ecosystem-card" key={ecosystem.id} id={ecosystem.sectionId}>
                     <div className="home-page__loop-meta">
                       <h3 className="home-page__subheading">{ecosystem.title}</h3>
                       <a href={ecosystem.sourceUrl} target="_blank" rel="noreferrer">
@@ -300,6 +340,49 @@ export function HomePage(): JSX.Element {
                     </div>
                   </article>
                 ))}
+
+                <article className="home-page__ecosystem-card home-page__ecosystem-card--comparison" id="single-vs-multi-agents-tech">
+                  <div className="home-page__loop-meta">
+                    <h3 className="home-page__subheading">Single-Agent vs Multi-Agent Systems (Technical)</h3>
+                  </div>
+
+                  <div className="home-page__walkthrough">
+                    <div className="home-page__walkthrough-block">
+                      <h5>Single-agent architecture</h5>
+                      <p>
+                        One agent owns planning, tool use, and response generation end-to-end. This minimizes coordination overhead,
+                        simplifies tracing, and is usually easier to operate in production.
+                      </p>
+                    </div>
+
+                    <div className="home-page__walkthrough-block">
+                      <h5>Multi-agent architecture</h5>
+                      <p>
+                        A coordinator delegates work to specialist agents (for example, retrieval, analysis, and validation). This improves
+                        specialization and parallelism but introduces inter-agent contracts and routing complexity.
+                      </p>
+                    </div>
+
+                    <div className="home-page__walkthrough-block">
+                      <h5>Key technical tradeoffs</h5>
+                      <ul>
+                        <li>Coordination complexity: low in single-agent, high in multi-agent.</li>
+                        <li>Latency and cost: generally lower in single-agent, often higher in multi-agent.</li>
+                        <li>Debuggability: simpler traces in single-agent, distributed traces in multi-agent.</li>
+                        <li>Specialization: limited in single-agent, stronger role specialization in multi-agent.</li>
+                        <li>Fault isolation: coarse in single-agent, better branch isolation in multi-agent.</li>
+                      </ul>
+                    </div>
+
+                    <div className="home-page__walkthrough-block">
+                      <h5>Selection rule</h5>
+                      <p>
+                        Start with single-agent for most production paths. Move to multi-agent only when specialization, parallel throughput,
+                        or independent validation stages become clear bottlenecks.
+                      </p>
+                    </div>
+                  </div>
+                </article>
               </div>
             )}
           </SectionShell>

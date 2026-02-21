@@ -24,7 +24,11 @@ export function SidebarNav({
           <li key={item.id}>
             <a
               href={`#${item.id}`}
-              className={classNames("sidebar-nav__link", activeId === item.id && "sidebar-nav__link--active")}
+              className={classNames(
+                "sidebar-nav__link",
+                item.level === 1 && "sidebar-nav__link--sub",
+                activeId === item.id && "sidebar-nav__link--active"
+              )}
               onClick={onNavigate}
             >
               {item.label}

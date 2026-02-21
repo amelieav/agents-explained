@@ -49,6 +49,11 @@
   transition: background-color var(--motion-quick), color var(--motion-quick);
 }
 
+.sidebar-nav__link--sub {
+  margin-left: var(--space-md);
+  font-size: var(--theme-size-caption);
+}
+
 .sidebar-nav__link:hover,
 .sidebar-nav__link:focus-visible {
   background: color-mix(in srgb, var(--accent-primary) 48%, var(--surface-layer) 52%);

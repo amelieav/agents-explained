@@ -137,7 +137,9 @@ export function GlossaryPage(): JSX.Element {
           <p>{glossaryPageCopy.eyebrow}</p>
           <h1>{glossaryPageCopy.title}</h1>
           <p>{translate(glossaryPageCopy.subtitle)}</p>
-          <Link to="/">{glossaryPageCopy.backLabel}</Link>
+          <Link className="glossary-page__back-link" to="/">
+            Back to Home
+          </Link>
         </header>
 
         <form className="glossary-page__controls" onSubmit={onSearch}>

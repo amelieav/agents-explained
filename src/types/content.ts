@@ -1,11 +1,9 @@
-export type SectionId =
-  | "intro"
-  | "mental-model"
-  | "releases";
+export type SectionId = string;
 
 export interface NavItem {
   id: SectionId;
   label: string;
+  level?: 0 | 1;
 }
 
 export interface LoopStep {

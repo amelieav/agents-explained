@@ -272,6 +272,63 @@
   color: var(--text-muted);
 }
 
+.home-page__simple-agent-stack {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.home-page__simple-agent-lead {
+  margin: 0;
+  font-family: var(--theme-font-display);
+  font-size: clamp(1.35rem, 1.8vw, 1.9rem);
+  line-height: 1.4;
+}
+
+.home-page__simple-agent-image {
+  width: 100%;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: var(--surface-layer);
+}
+
+.home-page__simple-agent-support {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.home-page__simple-agent-usecases,
+.home-page__simple-agent-disease {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface-layer) 82%, var(--accent-highlight) 18%);
+  padding: var(--space-md);
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.home-page__simple-agent-usecases h4,
+.home-page__simple-agent-disease h4 {
+  margin: 0;
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-card-title);
+}
+
+.home-page__simple-agent-usecases ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: var(--space-xxs);
+  color: var(--text-muted);
+}
+
+.home-page__simple-agent-disease p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
 @media (max-width: 980px) {
   .home-page__layout {
     grid-template-columns: 1fr;

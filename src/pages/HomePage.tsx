@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { AgentLoopDiagram } from "../components/AgentLoopDiagram/AgentLoopDiagram";
 import { LanguageToggle } from "../components/LanguageToggle/LanguageToggle";
 import { MobileNavDrawer } from "../components/MobileNavDrawer/MobileNavDrawer";
 import { ReleaseFeed } from "../components/ReleaseFeed/ReleaseFeed";
@@ -12,10 +11,10 @@ import autoGenDiagram from "../images/autogen.webp";
 import googleAdkDiagram from "../images/google-adk.webp";
 import googleCloudDiagram from "../images/google.webp";
 import microsoftDiagram from "../images/microsoft.webp";
+import simpleAgentDiagram from "../images/simple-agent-diagram-of-single-agents-vs-multi-agents.webp";
 import vertexDiagram from "../images/vertex-ai.webp";
 import { navItems } from "../content/sections";
 import { useLanguage } from "../language/LanguageProvider";
-import { LoopStep } from "../types/content";
 import { useActiveSection } from "../utils/useActiveSection";
 import "./HomePage.css";
 
@@ -32,34 +31,6 @@ interface TechnicalEcosystem {
   goodFor: string[];
 }
 
-const simpleLoopSteps: LoopStep[] = [
-  {
-    id: "simple-listen",
-    label: "1) You ask for help",
-    detail: "You type what you want, like planning a trip or writing an email."
-  },
-  {
-    id: "simple-plan",
-    label: "2) It makes a plan",
-    detail: "The AI breaks your request into small steps."
-  },
-  {
-    id: "simple-work",
-    label: "3) It does the work",
-    detail: "It uses tools and information to complete each step."
-  },
-  {
-    id: "simple-check",
-    label: "4) It checks itself",
-    detail: "It reviews the result to catch mistakes."
-  },
-  {
-    id: "simple-return",
-    label: "5) It gives you the answer",
-    detail: "You get a clear result, and you can ask it to improve it."
-  }
-];
-
 const simpleHomeCopy = {
   heroSubtitle:
     "A simple guide to one of the next big steps in technology: AI Agents. AI agents are helpers that can understand a goal, do the steps, and bring back a finished result.",
@@ -75,9 +46,18 @@ const simpleHomeCopy = {
     "You type: 'Plan a 2-day birthday trip for my family under $600.' The AI agent can search options, compare prices, build a day-by-day plan, and give you one final plan you can use right away.",
   mentalModelTitle: "What an AI agent is (super simple view)",
   mentalModelSummary:
-    "Think of it like a smart assistant that follows a 5-step checklist every time.",
-  mentalModelBody:
-    "Instead of showing many advanced systems, this simple view shows the basic idea: you ask, it plans, it does, it checks, and it returns the result."
+    "Simple view of one agent vs a team of agents, and where each is useful.",
+  mentalModelLead:
+    "An AI agent is a digital worker: you give it a goal, and it can figure out the steps, use tools, and return a complete result.",
+  mentalModelSupport:
+    "A multi-agent system means multiple digital workers collaborate. One can research, one can analyze, and one can check quality so the final answer is stronger.",
+  mentalModelUseCases: [
+    "Personal planning, writing support, and document summaries.",
+    "Business workflows like customer support, compliance review, and reporting.",
+    "Research-heavy tasks where several specialist agents can work in parallel."
+  ],
+  mentalModelDiseaseExample:
+    "Disease-solving example: one agent reads patient notes and lab results, another scans new medical studies, and a third checks treatment risks or drug interactions. Together they can prepare a faster, better-organized draft for doctors to review."
 };
 
 const technicalEcosystems: TechnicalEcosystem[] = [
@@ -250,16 +230,29 @@ export function HomePage(): JSX.Element {
             variant="glass"
           >
             {plainModeEnabled ? (
-              <div className="home-page__loop-stack">
-                <p className="home-page__loop-why">{simpleHomeCopy.mentalModelBody}</p>
-                <AgentLoopDiagram steps={simpleLoopSteps} layout="orchestrator-ladder" />
-                <ol className="home-page__ordered-list">
-                  {simpleLoopSteps.map((step) => (
-                    <li key={step.id}>
-                      <strong>{step.label}:</strong> {step.detail}
-                    </li>
-                  ))}
-                </ol>
+              <div className="home-page__simple-agent-stack">
+                <p className="home-page__simple-agent-lead">{simpleHomeCopy.mentalModelLead}</p>
+                <img
+                  className="home-page__simple-agent-image"
+                  src={simpleAgentDiagram}
+                  alt="Simple diagram showing a single agent versus multiple cooperating agents"
+                  loading="lazy"
+                />
+                <p className="home-page__simple-agent-support">{simpleHomeCopy.mentalModelSupport}</p>
+
+                <div className="home-page__simple-agent-usecases">
+                  <h4>Common use cases</h4>
+                  <ul>
+                    {simpleHomeCopy.mentalModelUseCases.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="home-page__simple-agent-disease">
+                  <h4>How this can help with disease-solving</h4>
+                  <p>{simpleHomeCopy.mentalModelDiseaseExample}</p>
+                </div>
               </div>
             ) : (
               <div className="home-page__ecosystem-stack">

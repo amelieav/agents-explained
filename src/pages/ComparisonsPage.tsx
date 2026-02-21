@@ -20,7 +20,6 @@ export function ComparisonsPage(): JSX.Element {
           <p>{comparisonPageCopy.subtitle}</p>
           <div className="comparisons-page__links">
             <Link to="/">{comparisonPageCopy.backLabel}</Link>
-            <Link to="/decision-lab">{comparisonPageCopy.labLabel}</Link>
             <Link to="/glossary">{comparisonPageCopy.glossaryLabel}</Link>
           </div>
         </header>

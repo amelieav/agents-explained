@@ -43,22 +43,6 @@ Fails if raw color literals appear in component files.
 npm run build
 ```
 
-## Environment variables
-
-Put env files in the app root: `.env.local` and `.env.production`.
-
-Required variables:
-
-```bash
-VITE_SUPABASE_URL=https://your-project-ref.supabase.co
-VITE_SUPABASE_ANON_KEY=sb_publishable_xxx
-```
-
-For GitHub Pages deploys, set repository secrets with these exact names:
-
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-
 ## Deployment
 
 - GitHub Pages workflow: `.github/workflows/deploy-pages.yml`

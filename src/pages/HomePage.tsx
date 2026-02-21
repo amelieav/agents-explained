@@ -15,11 +15,60 @@ import {
 } from "../content/copy";
 import { navItems } from "../content/sections";
 import { useLanguage } from "../language/LanguageProvider";
+import { LoopStep } from "../types/content";
 import { useActiveSection } from "../utils/useActiveSection";
 import "./HomePage.css";
 
+const simpleLoopSteps: LoopStep[] = [
+  {
+    id: "simple-listen",
+    label: "1) You ask for help",
+    detail: "You type what you want, like planning a trip or writing an email."
+  },
+  {
+    id: "simple-plan",
+    label: "2) It makes a plan",
+    detail: "The AI breaks your request into small steps."
+  },
+  {
+    id: "simple-work",
+    label: "3) It does the work",
+    detail: "It uses tools and information to complete each step."
+  },
+  {
+    id: "simple-check",
+    label: "4) It checks itself",
+    detail: "It reviews the result to catch mistakes."
+  },
+  {
+    id: "simple-return",
+    label: "5) It gives you the answer",
+    detail: "You get a clear result, and you can ask it to improve it."
+  }
+];
+
+const simpleHomeCopy = {
+  heroSubtitle:
+    "A simple guide to one of the next big steps in technology: AI Agents. AI agents are helpers that can understand a goal, do the steps, and bring back a finished result.",
+  introSummary:
+    "An AI agent is like a digital helper that can do a task for you, not just chat with you.",
+  introBullets: [
+    "A normal chatbot mostly talks. An AI agent can take action.",
+    "You give it a goal, and it works through the steps for you.",
+    "It can check its own work before showing you the final answer."
+  ],
+  introExampleTitle: "Simple example",
+  introExampleText:
+    "You type: 'Plan a 2-day birthday trip for my family under $600.' The AI agent can search options, compare prices, build a day-by-day plan, and give you one final plan you can use right away.",
+  mentalModelTitle: "What an AI agent is (super simple view)",
+  mentalModelSummary:
+    "Think of it like a smart assistant that follows a 5-step checklist every time.",
+  mentalModelBody:
+    "Instead of showing many advanced systems, this simple view shows the basic idea: you ask, it plans, it does, it checks, and it returns the result."
+};
+
 export function HomePage(): JSX.Element {
-  const { translate } = useLanguage();
+  const { plainModeEnabled } = useLanguage();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeLoopReferenceId, setActiveLoopReferenceId] = useState(agentLoopReferences[0].id);
   const ids = useMemo(() => navItems.map((item) => item.id), []);
@@ -45,7 +94,7 @@ export function HomePage(): JSX.Element {
             <div className="home-page__hero-copy">
               <p>{siteCopy.eyebrow}</p>
               <h1>{siteCopy.title}</h1>
-              <p>{translate(siteCopy.subtitle)}</p>
+              <p>{plainModeEnabled ? simpleHomeCopy.heroSubtitle : siteCopy.subtitle}</p>
               <button className="home-page__menu-button" type="button" onClick={() => setDrawerOpen(true)}>
                 {siteCopy.mobileMenuLabel}
               </button>
@@ -60,55 +109,87 @@ export function HomePage(): JSX.Element {
             </div>
           </header>
 
-          <SectionShell id="intro" title={introCopy.heading} summary={translate(introCopy.summary)} variant="highlight">
+          <SectionShell
+            id="intro"
+            title={introCopy.heading}
+            summary={plainModeEnabled ? simpleHomeCopy.introSummary : introCopy.summary}
+            variant="highlight"
+          >
             <ul className="home-page__bullet-list">
-              {introCopy.bullets.map((bullet) => (
-                <li key={bullet}>{translate(bullet)}</li>
+              {(plainModeEnabled ? simpleHomeCopy.introBullets : introCopy.bullets).map((bullet) => (
+                <li key={bullet}>{bullet}</li>
               ))}
             </ul>
+
+            {plainModeEnabled ? (
+              <article className="home-page__example-card" aria-label="Simple AI agent example">
+                <h3>{simpleHomeCopy.introExampleTitle}</h3>
+                <p>{simpleHomeCopy.introExampleText}</p>
+              </article>
+            ) : null}
           </SectionShell>
 
           <SectionShell
             id="mental-model"
-            title={homeSectionCopy.mentalModel.title}
-            summary={translate(homeSectionCopy.mentalModel.summary)}
+            title={plainModeEnabled ? simpleHomeCopy.mentalModelTitle : homeSectionCopy.mentalModel.title}
+            summary={plainModeEnabled ? simpleHomeCopy.mentalModelSummary : homeSectionCopy.mentalModel.summary}
             variant="glass"
           >
-            <div className="home-page__loop-tabs" role="tablist" aria-label="Agent ecosystem sources">
-              {agentLoopReferences.map((reference) => (
-                <button
-                  key={reference.id}
-                  type="button"
-                  role="tab"
-                  className={`home-page__loop-tab${reference.id === activeLoopReference.id ? " home-page__loop-tab--active" : ""}`}
-                  aria-selected={reference.id === activeLoopReference.id}
-                  onClick={() => setActiveLoopReferenceId(reference.id)}
-                >
-                  {reference.tabLabel}
-                </button>
-              ))}
-            </div>
-
-            <div className="home-page__loop-stack">
-              <div className="home-page__loop-meta">
-                <h3 className="home-page__subheading">{activeLoopReference.title}</h3>
-                <a href={activeLoopReference.sourceUrl} target="_blank" rel="noreferrer">
-                  {activeLoopReference.sourceName}
-                </a>
+            {plainModeEnabled ? (
+              <div className="home-page__loop-stack">
+                <p className="home-page__loop-why">{simpleHomeCopy.mentalModelBody}</p>
+                <AgentLoopDiagram steps={simpleLoopSteps} layout="orchestrator-ladder" />
+                <ol className="home-page__ordered-list">
+                  {simpleLoopSteps.map((step) => (
+                    <li key={step.id}>
+                      <strong>{step.label}:</strong> {step.detail}
+                    </li>
+                  ))}
+                </ol>
               </div>
-              <p className="home-page__loop-why">{translate(activeLoopReference.why)}</p>
-              <AgentLoopDiagram steps={activeLoopReference.steps} layout={activeLoopReference.diagramKind} />
-              <ol className="home-page__ordered-list">
-                {activeLoopReference.steps.map((step) => (
-                  <li key={step.id}>
-                    <strong>{step.label}:</strong> {translate(step.detail)}
-                  </li>
-                ))}
-              </ol>
-            </div>
+            ) : (
+              <>
+                <div className="home-page__loop-tabs" role="tablist" aria-label="Agent ecosystem sources">
+                  {agentLoopReferences.map((reference) => (
+                    <button
+                      key={reference.id}
+                      type="button"
+                      role="tab"
+                      className={`home-page__loop-tab${reference.id === activeLoopReference.id ? " home-page__loop-tab--active" : ""}`}
+                      aria-selected={reference.id === activeLoopReference.id}
+                      onClick={() => setActiveLoopReferenceId(reference.id)}
+                    >
+                      {reference.tabLabel}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="home-page__loop-stack">
+                  <div className="home-page__loop-meta">
+                    <h3 className="home-page__subheading">{activeLoopReference.title}</h3>
+                    <a href={activeLoopReference.sourceUrl} target="_blank" rel="noreferrer">
+                      {activeLoopReference.sourceName}
+                    </a>
+                  </div>
+                  <p className="home-page__loop-why">{activeLoopReference.why}</p>
+                  <AgentLoopDiagram steps={activeLoopReference.steps} layout={activeLoopReference.diagramKind} />
+                  <ol className="home-page__ordered-list">
+                    {activeLoopReference.steps.map((step) => (
+                      <li key={step.id}>
+                        <strong>{step.label}:</strong> {step.detail}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </>
+            )}
           </SectionShell>
 
-          <SectionShell id="releases" title={releaseCopy.heading} summary={translate(releaseCopy.subheading)}>
+          <SectionShell
+            id="releases"
+            title={releaseCopy.heading}
+            summary={plainModeEnabled ? "Latest project update from GitHub." : releaseCopy.subheading}
+          >
             <ReleaseFeed
               endpoint={siteCopy.releaseEndpoint}
               loadingLabel={releaseCopy.loading}

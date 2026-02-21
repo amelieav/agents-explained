@@ -194,6 +194,27 @@
   color: var(--text-muted);
 }
 
+.home-page__example-card {
+  margin-top: var(--space-sm);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface-layer) 78%, var(--accent-highlight) 22%);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-soft);
+}
+
+.home-page__example-card h3 {
+  margin: 0;
+  font-family: var(--theme-font-display);
+  font-size: var(--theme-size-card-title);
+}
+
+.home-page__example-card p {
+  margin: var(--space-xs) 0 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 @media (max-width: 980px) {
   .home-page__layout {
     grid-template-columns: 1fr;

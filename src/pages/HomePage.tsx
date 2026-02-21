@@ -44,6 +44,9 @@ export function HomePage(): JSX.Element {
               </button>
             </div>
             <div className="home-page__hero-links">
+              <Link className="home-page__hero-link" to="/decision-lab">
+                {siteCopy.labCta}
+              </Link>
               <Link className="home-page__hero-link" to="/comparisons">
                 {siteCopy.comparisonsCta}
               </Link>

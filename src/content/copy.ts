@@ -15,6 +15,7 @@ export const siteCopy = {
     "A practical guide for developers who want clear architecture choices, not just buzzwords.",
   sidebarTitle: "Guide Map",
   sidebarNote: "Scroll naturally or jump by section.",
+  labCta: "Open Decision Lab",
   comparisonsCta: "Open Comparisons",
   glossaryCta: "Open Glossary",
   mobileMenuLabel: "Open section menu",
@@ -1011,6 +1012,7 @@ export const comparisonPageCopy = {
   subtitle:
     "Use this page for side-by-side choices. Keep the landing page focused on loop mechanics and multi-agent ecosystems.",
   backLabel: "Back to landing",
+  labLabel: "Open decision lab",
   glossaryLabel: "Open glossary",
   similarTermsTitle: "Similar terms that people mix up",
   similarTermsSummary: "Fast distinctions to make architecture decisions without terminology drift.",

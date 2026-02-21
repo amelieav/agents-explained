@@ -8,8 +8,8 @@ interface LanguageToggleProps {
 
 export function LanguageToggle({ className }: LanguageToggleProps): JSX.Element {
   const { plainModeEnabled, toggleMode } = useLanguage();
-  const modeLabel = plainModeEnabled ? "On" : "Off";
-  const actionLabel = plainModeEnabled ? "Switch to default wording" : "Switch to simpler wording";
+  const modeLabel = plainModeEnabled ? "Simple" : "Tech";
+  const actionLabel = plainModeEnabled ? "Switch to technical wording" : "Switch to Laymans Terms";
 
   return (
     <button
@@ -20,7 +20,7 @@ export function LanguageToggle({ className }: LanguageToggleProps): JSX.Element 
       aria-label={actionLabel}
       title={actionLabel}
     >
-      <span className="language-toggle__label">Layman Terms</span>
+      <span className="language-toggle__label">Laymans Terms</span>
       <span className="language-toggle__status">{modeLabel}</span>
     </button>
   );
